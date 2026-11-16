@@ -13,7 +13,8 @@ students kept in the second estimation and over all students, to see which repro
 Courses enter the estimation if INEP published an IDD for them (scripts 12 and 13 read those files).
 
 Input: microdados_IDD_<year> (.zip as published, or the folder extracted from the .7z/.rar archives)
-in the data folder (config.DADOS). Usage: python 15_idd_microdados.py 2021 2023
+in the data folder (config.DADOS) or any subfolder of it. Editions 2014 and 2015 are not recomputed because
+their published spreadsheets (CPC) have no course codes to merge with. Usage: python 15_idd_microdados.py 2016 2017 2018 2019 2021 2022 2023  (set B=200 for bootstrap intervals)
 Outputs: results/15_parametros.csv, results/15_idd_cursos_<year>.csv, results/15_comparacao.csv
 """
 import os, re, sys, glob, zipfile, io
@@ -132,8 +133,13 @@ if __name__ == '__main__':
             b = dd[dd['categoria'].isin(cats)]; g = dd[dd['categoria'] == p.FED]
             if len(b) < 30: continue
             for c in ('idd_bruto', 'idd_novo', 'idd_antigo_mantidos', 'idd_antigo_todos'):
-                dn, di = p.pareada(g.assign(idd_bruto=g[c]), b.assign(idd_bruto=b[c]))
+                gg, bb = g.assign(idd_bruto=g[c]), b.assign(idd_bruto=b[c])
+                dn, di = p.pareada(gg, bb)
                 linha[f'{nome_base}: dif_nota'] = dn; linha[f'{nome_base}: dif_{c}'] = di
+                if c == 'idd_novo' and int(os.environ.get('B', '0')):
+                    icn, ici = p.boot(gg.reset_index(drop=True), bb.reset_index(drop=True), B=int(os.environ['B']))
+                    linha[f'{nome_base}: ic_idd_novo_inf'], linha[f'{nome_base}: ic_idd_novo_sup'] = ici
+                    linha[f'{nome_base}: ic_nota_inf'], linha[f'{nome_base}: ic_nota_sup'] = icn
         comp.append(linha); print(ano, 'ok', flush=True)
     for nome, L in [('15_parametros.csv', pars_all), ('15_comparacao.csv', comp)]:
         out = pd.concat(L) if nome == '15_parametros.csv' else pd.DataFrame(L)

@@ -192,18 +192,34 @@ for ano in sorted(f.ano.unique()):
 rows = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in rows]
 rows += ['\\bottomrule', '\\end{tabular}']
 save('tab_series', '\n'.join(rows))
-fig, ax = plt.subplots(figsize=(6.4, 3.4))
+# Table: IDD recomputed from the student-level microdata (script 15)
+rc = pd.read_csv(f'{R}15_comparacao.csv', sep=';').set_index('ano')
+rows = ['\\begin{tabular}{cccccc}', '\\toprule',
+        ' & & & \\multicolumn{2}{c}{Value-added gap} & Share of raw gap \\\\', '\\cmidrule(lr){4-5}',
+        'Edition & Area group & Raw score gap & Published IDD & Current method & present at entry \\\\', '\\midrule']
+for base_, lab_ in [('private for-profit', 'A. Relative to private for-profit courses'), ('all private', 'B. Relative to all private courses')]:
+    rows.append(f'\\multicolumn{{6}}{{l}}{{\\textit{{{lab_}}}}} \\\\')
+    for ano in rc.index:
+        x = rc.loc[ano]; k = lambda c: x[f'{base_}: {c}']
+        rows.append(f"{ano} & {grp[ano]} & {k('dif_nota'):.1f} & {k('dif_idd_bruto'):.2f} & {k('dif_idd_novo'):.2f} [{k('ic_idd_novo_inf'):.2f}, {k('ic_idd_novo_sup'):.2f}] & {100*(1-k('dif_idd_novo')/k('dif_nota')):.0f}\\% \\\\")
+    if base_ == 'private for-profit': rows.append('\\midrule')
+rows = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in rows]
+rows += ['\\bottomrule', '\\end{tabular}']
+save('tab_recomputed', '\n'.join(rows))
+# Figure 2: published and recomputed value-added gaps by group of areas (for-profit base)
+fig, ax = plt.subplots(figsize=(6.4, 3.6))
 cores = {'I': '#2A78D6', 'II': '#E07B39', 'III': '#3A9E5F'}
 nomes = {'I': 'Group I (mainly health, agrarian)', 'II': 'Group II (mainly sciences, teacher training)', 'III': 'Group III (mainly applied social sciences)'}
 for g_, cor in cores.items():
-    anos = [a for a in sorted(grp) if grp[a] == g_]
-    y = [];  lo = []; hi = []
-    for a in anos:
-        x_ = f[(f.ano == a) & (f.base == 'all private')]
-        y.append(x_.dif_idd.iloc[0]); lo.append(x_.dif_idd.iloc[0] - x_.ic_idd_inf.iloc[0]); hi.append(x_.ic_idd_sup.iloc[0] - x_.dif_idd.iloc[0])
-    ax.errorbar(anos, y, yerr=[lo, hi], marker='o', color=cor, label=nomes[g_], capsize=2, lw=1.2)
+    anos = [a for a in rc.index if grp[a] == g_]
+    y = [rc.loc[a, 'private for-profit: dif_idd_novo'] for a in anos]
+    lo = [y[j] - rc.loc[a, 'private for-profit: ic_idd_novo_inf'] for j, a in enumerate(anos)]
+    hi = [rc.loc[a, 'private for-profit: ic_idd_novo_sup'] - y[j] for j, a in enumerate(anos)]
+    ax.errorbar(anos, y, yerr=[lo, hi], marker='o', color=cor, label=nomes[g_] + ', current method', capsize=2, lw=1.4)
+    ax.plot(anos, [rc.loc[a, 'private for-profit: dif_idd_bruto'] for a in anos], marker='o', mfc='white', color=cor, ls='--', lw=1)
+ax.plot([], [], color='0.4', ls='--', marker='o', mfc='white', label='Published IDD')
 ax.axhline(0, color='k', lw=0.6); ax.axvspan(2019.6, 2020.4, color='0.9', zorder=0)
-ax.axvline(2021.5, color='#52514E', lw=0.9, ls='--'); ax.text(2021.4, ax.get_ylim()[1]*0.95, 'IDD method\nchanged', fontsize=7, va='top', ha='right', color='#52514E')
-ax.set_xticks([2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023]); ax.tick_params(labelsize=8)
-ax.set_ylabel('Federal minus private, IDD points', fontsize=8); ax.legend(fontsize=7, frameon=False, loc='upper left')
+ax.axvline(2021.5, color='#52514E', lw=0.9, ls=':')
+ax.set_xticks([2016, 2017, 2018, 2019, 2021, 2022, 2023]); ax.tick_params(labelsize=8)
+ax.set_ylabel('Federal minus for-profit, IDD points', fontsize=8); ax.legend(fontsize=6.5, frameon=False, loc='upper left')
 plt.tight_layout(); plt.savefig('figures/fig_series.pdf'); plt.savefig('figures/fig_series.png', dpi=200)

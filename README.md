@@ -1,6 +1,6 @@
 # Selection or Teaching? Value Added and Cost in Brazilian Federal Universities
 
-Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.4, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
+Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.5, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
 
 The paper asks how much of the advantage of Brazilian federal universities in the national graduation exam (Enade) is selection and how much is teaching. It compares federal and private courses of the same assessment area using the raw Enade score and INEP's value-added indicator (IDD). It also shows that the method INEP used to compute the IDD until 2021 pulled course effects toward zero, more so in larger courses, which is why earlier editions show almost no value-added gap between federal and private courses.
 
@@ -83,14 +83,14 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `09_regressoes.py` | Weighted regressions on administrative category with area fixed effects, clustered by institution | Tables 3, 4, 6 and 7, Figure 1 |
 | `10_diferencas_pareadas.py` | Within-area gaps between federal and for-profit courses, by competition for seats, with bootstrap intervals | Table 5 |
 | `11_diagnostico_2019_2023.py` | Diagnostics of the 2019 and 2023 gaps | Value-added gap by Enem coverage band in 2023 (Section 6.3) |
-| `12_serie_historica.py` | Within-area gaps in every edition with course-level IDD, 2014-2023 | Tables 2 and 8, Figure 2 |
+| `12_serie_historica.py` | Within-area gaps in every edition with course-level IDD, 2014-2023 | Tables 2 and 8 |
 | `13_metodo_idd.py` | Dispersion of the IDD and federal gaps by course size, every edition | Table 9 |
 | `14_reconstrucao_idd.py` | Approximate conversion of the 2014-2021 IDD to the current method from course-level data; superseded by script 15 | No |
-| `15_idd_microdados.py` | Recomputes the IDD of each edition from INEP's student-level IDD microdata with both the old and the current definitions, checks them against the published values and computes the federal gaps | Section 6.4 |
+| `15_idd_microdados.py` | Recomputes the IDD of each edition from INEP's student-level IDD microdata with both the old and the current definitions, checks them against the published values (they match exactly) and computes the federal gaps | Table 10, Figure 2 |
 
 The comparisons by category in scripts 02 and 06 subtract national means of area deviations and are superseded by the within-area comparison of script 10, which the paper uses.
 
-**IDD method.** INEP changed the definition of the raw IDD in 2022 (Nota Técnica nº 29/2023/CEI/CGGI/DAES). The IDD of 2014 to 2021, including the 2019 files used by scripts 02, 08, 09 and 11, was computed with the earlier method, which pulls course effects toward zero as the number of graduates grows. Results based on those editions should be read with Section 6.4 of the paper.
+**IDD method.** INEP changed the definition of the raw IDD in 2022 (Nota Técnica nº 29/2023/CEI/CGGI/DAES). The IDD of 2014 to 2021, including the 2019 files used by scripts 02, 08, 09 and 11, was computed with the earlier method, which pulls course effects toward zero as the number of graduates grows. Results based on those editions should be read with Section 6.4 of the paper. Script 15 recomputes the IDD of 2016 to 2023 with both definitions from INEP's student-level microdata; it finds the extracted microdata files anywhere under the data folder.
 
 ## Language of the code
 
