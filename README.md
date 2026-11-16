@@ -29,7 +29,14 @@ Place the files below in one folder and set the environment variable `DADOS` to 
 | `conceito_enade_2021.xlsx`, `IDD_2021.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/resultados/2021/ |
 | `conceito_enade_2022.xlsx`, `idd_2022.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/resultados/2022/ |
 | `conceito_enade_2023.xlsx`, `IDD_2023.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/resultados/2023/ |
-| `cpc2014_atualizado_em_04122017.xlsx`, `cpc_2015_portal_atualizado_03_10_2017.xls`, `resultado_enade2016_portal_06_09_2017.xlsx`, `resultado_IDD2016_portal_06_09_2017.xlsx`, `resultados_conceito_enade_2017.xlsx`, `resultados_IDD_2017.xlsx`, `resultados_conceito_enade_2018.xlsx`, `resultados_IDD_2018.xlsx` | INEP, results of the higher-education quality indicators (*Indicadores de Qualidade da Educação Superior*), editions 2014 to 2018 |
+| `cpc2014_atualizado_em_04122017.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/enade/planilhas/2014/cpc2014_atualizado_em_04122017.xlsx |
+| `cpc_2015_portal_atualizado_03_10_2017.xls` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/legislacao/2017/cpc_2015_portal_atualizado_03_10_2017.xls |
+| `resultado_enade2016_portal_06_09_2017.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/legislacao/2017/resultado_enade2016_portal_06_09_2017.xlsx |
+| `resultado_IDD2016_portal_06_09_2017.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/legislacao/2017/resultado_IDD2016_portal_06_09_2017.xlsx |
+| `resultados_conceito_enade_2017.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/legislacao/2018/resultados_conceito_enade_2017.xlsx |
+| `resultados_IDD_2017.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/legislacao/2018/resultados_IDD_2017.xlsx |
+| `resultados_conceito_enade_2018.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/legislacao/2019/resultados_conceito_enade_2018.xlsx |
+| `resultados_IDD_2018.xlsx` | INEP, https://download.inep.gov.br/educacao_superior/indicadores/legislacao/2019/resultados_IDD_2018.xlsx |
 | `microdados_enade_2019_LGPD.zip`, `microdados_enade_2023.zip` | INEP, https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enade |
 | `microdados_censo_da_educacao_superior_2018.zip`, `microdados_censo_da_educacao_superior_2024.zip` | INEP, https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior |
 | `microdados_enem_2024.zip` | INEP, https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem |
