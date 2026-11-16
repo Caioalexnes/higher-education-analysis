@@ -36,7 +36,7 @@ Place the files below in one folder and set the environment variable `DADOS` to 
 | `2024_OrcamentoDespesa.zip` | Portal da Transparência, https://portaldatransparencia.gov.br/download-de-dados/orcamento-despesa/2024 |
 | `br-capes-colsucup-discentes-2024-2025-12-01.csv`, `br-capes-colsucup-prog-2024-2025-12-01.csv` | CAPES open data, https://dadosabertos.capes.gov.br |
 
-File names are those of the downloads. INEP occasionally republishes spreadsheets; the versions used here were downloaded in November 2026.
+File names are those of the downloads. INEP occasionally republishes spreadsheets; the versions used here were downloaded in November 2026. [`DATA_SHA256SUMS.txt`](DATA_SHA256SUMS.txt) lists the SHA-256 checksum of each file, so that a new download can be checked against the version used here: run `sha256sum -c DATA_SHA256SUMS.txt` in the data folder (Linux or macOS), or compare with the output of `Get-FileHash <file>` in PowerShell (Windows).
 
 ## How to run
 
