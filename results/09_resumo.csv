@@ -1,0 +1,15 @@
+modelo;amostra;fed_nota;ep_nota;fed_idd;ep_idd;parcela_selecao;fed_idd_dp_aluno
+M1 area FE;2023;13.3304;0.5538;2.9394;0.2270;0.7795;0.2160
+M2 + modality, organization, size, UF FE;2023;13.1989;0.6722;2.8624;0.3048;0.7831;0.2103
+M1 area FE;2019;12.0414;0.4828;0.2487;0.0538;0.9793;0.0183
+M2 + modality, organization, size, UF FE;2019;11.1255;0.5446;0.1027;0.0655;0.9908;0.0075
+M3 + entrant composition (Census 2018);2023;8.7671;0.9155;1.8500;0.4197;0.7890;0.1359
+M4 + log(1+applicants per seat) x federal;2023;12.0403;1.4699;3.6051;0.6182;0.7006;0.2649
+M5 + low demand (<2 applicants per seat) x federal;2023;12.8029;0.7486;2.6763;0.3399;0.7910;0.1966
+M5b low demand x federal, excluding courses reporting exactly 1.0 applicant per seat;2023;12.8383;0.7517;2.7011;0.3450;0.7896;0.1985
+M2 robustness;2023 unweighted;12.3712;0.6569;2.5927;0.2670;0.7904;0.1905
+M2 robustness;2023 in-person only;13.5867;0.6999;2.9354;0.3135;0.7840;0.2157
+M2 robustness;2023 universities only;12.6291;0.7834;2.5823;0.3897;0.7955;0.1897
+M2 robustness;2023 >=20 graduates with Enem;13.1436;0.6841;2.8471;0.3252;0.7834;0.2092
+M2 robustness;2023 Enem coverage >= 50%;13.4991;0.6519;2.9275;0.3118;0.7831;0.2151
+M2 + Enem coverage control;2023;10.6310;0.5741;2.1316;0.2855;0.7995;0.1566

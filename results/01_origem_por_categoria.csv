@@ -1,0 +1,28 @@
+categoria;modalidade;matriculas;pct_escola_publica_mat;pct_escola_privada_mat;pct_escola_publica_ing;pct_escola_publica_conc;pct_nao_informado;pct_reserva_vaga
+Pública Federal;todas;1317548;68.1;31.9;70.1;64.6;0.1;39.6
+Pública Estadual;todas;666980;66.4;33.6;72.6;62.9;0.0;17.9
+Pública Municipal;todas;35139;62.7;37.3;68.6;57.9;0.0;4.9
+Privada com fins lucrativos;todas;6372474;78.3;21.7;78.0;77.8;0.0;0.0
+Privada sem fins lucrativos;todas;1789725;63.7;36.3;66.3;63.6;0.0;0.2
+Especial;todas;45400;64.8;35.2;71.8;61.8;0.0;0.5
+Públicas (1-3);todas;2019667;67.4;32.6;70.9;63.9;0.1;31.8
+Privadas (4-5);todas;8162199;75.1;24.9;76.1;74.2;0.0;0.1
+Total;todas;10227266;73.5;26.5;75.5;72.2;0.0;6.3
+Pública Federal;presencial;1226567;67.7;32.3;69.8;64.3;0.1;40.9
+Pública Estadual;presencial;545404;62.4;37.6;69.0;59.9;0.0;20.7
+Pública Municipal;presencial;34630;62.4;37.6;68.4;57.5;0.0;4.9
+Privada com fins lucrativos;presencial;1914978;69.7;30.3;72.6;68.1;0.0;0.1
+Privada sem fins lucrativos;presencial;1273169;59.1;40.9;61.2;58.6;0.0;0.3
+Especial;presencial;43127;64.0;36.0;70.7;60.9;0.0;0.5
+Públicas (1-3);presencial;1806601;66.0;34.0;69.5;62.7;0.1;34.2
+Privadas (4-5);presencial;3188147;65.5;34.5;68.5;64.2;0.0;0.2
+Total;presencial;5037875;65.6;34.4;68.8;63.7;0.0;12.4
+Pública Federal;a distância;90981;73.5;26.5;72.6;70.8;0.5;21.2
+Pública Estadual;a distância;121576;84.1;15.9;82.8;84.1;0.0;4.9
+Pública Municipal;a distância;509;79.6;20.4;78.2;88.9;0.0;0.0
+Privada com fins lucrativos;a distância;4457496;82.0;18.0;79.4;83.3;0.0;0.0
+Privada sem fins lucrativos;a distância;516556;75.1;24.9;73.9;78.0;0.0;0.0
+Especial;a distância;2273;81.7;18.3;82.7;79.4;0.0;0.0
+Públicas (1-3);a distância;213066;79.6;20.4;78.7;78.6;0.2;11.9
+Privadas (4-5);a distância;4974052;81.2;18.8;78.9;82.6;0.0;0.0
+Total;a distância;5189391;81.2;18.8;78.9;82.5;0.0;0.5

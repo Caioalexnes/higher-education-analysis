@@ -1,0 +1,20 @@
+# Raw data (download from the official sources; see README)
+*.zip
+*.xlsx
+*.xls
+*.ods
+br-capes-*.csv
+data/
+
+# Python
+__pycache__/
+*.pyc
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.blg
+*.bbl
+*.synctex.gz

@@ -1,0 +1,285 @@
+% Selection or Teaching? Value Added and Cost in Brazilian Federal Universities
+% Working paper, draft v0.3 (November 2026)
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\usepackage[english]{babel}
+\usepackage[a4paper,margin=2.6cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.25}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,threeparttable}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage[round]{natbib}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue!50!black]{hyperref}
+\usepackage{xurl}
+\newcommand{\todo}[1]{\par\noindent\colorbox{yellow!25}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small\textbf{TO DO:} #1}}\par}
+
+\title{\textbf{Selection or Teaching?}\\[0.2em]\large Value Added and Cost in Brazilian Federal Universities}
+\author{Caio A. F. Cunha\thanks{Independent researcher. ORCID: \href{https://orcid.org/0009-0008-2153-901X}{0009-0008-2153-901X}. Data, code and replication instructions: \url{https://github.com/Caioalexnes/higher-education-analysis}.}}
+\date{Working paper, draft v0.3, November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Brazilian federal universities are tuition-free, admit students through a national exam and lead every raw indicator of higher-education quality. This paper asks how much of their advantage is selection and how much is teaching. Using course-level results of the national graduation exam (Enade) and the official value-added indicator that nets out each graduate's admission-exam score (IDD), and comparing only courses in the same assessment area, federal graduates score 12.7 points above graduates of for-profit private courses in 2023 and 11.7 points in 2022, on a 0--100 scale. Their value-added advantage is 2.6 and 2.7 points: about four fifths of the raw gap was already present at entry. The pattern holds with controls for modality, institution type, size, state and entering-cohort composition, and in every robustness check. Where federal courses face little competition for seats, the raw gap falls by about half while the value-added gap shows no clear change. The paper also shows that the method INEP used to compute the IDD until 2021 pulled course effects toward zero, the more so the larger the course, which is why the IDD of earlier editions shows almost no value-added gap between federal and private courses; INEP changed the method in 2022. Among 66 federal universities, current spending per student is not significantly associated with value added.
+
+\medskip
+\noindent\textbf{Keywords:} higher education; value added; selection; public universities; Brazil; Enade.\\
+\noindent\textbf{JEL codes:} I23; I22; H52.
+\end{abstract}
+
+\newpage
+%======================================================================
+\section{Introduction}\label{sec:intro}
+%======================================================================
+
+In Brazil, federal universities are free of tuition, are financed entirely by the federal government and are widely regarded as the best institutions in the country. On every raw indicator of quality published by the Ministry of Education they lead the private sector, which enrols about four in five undergraduates. In the 2023 national graduation exam, 63.7\% of federal courses obtained the two highest grades of the official course score, against 10.4\% of courses offered by for-profit private institutions. Federal universities also cost more per student. The World Bank estimated spending per student in Brazilian public universities at two to five times that of private institutions \citep{worldbank2017}, and a later study that disputes this estimate still finds a difference of about one and a half times \citep{bielschowsky2022}.
+
+A raw comparison of outcomes cannot tell whether federal universities teach more or simply admit students who already know more. Admission to federal universities runs through a centralized platform (Sisu) that ranks applicants by their score in the national secondary-school exam (Enem), so the most demanded courses fill their seats with applicants from the top of the national distribution. Graduates' scores therefore mix what students knew at entry with what the institution added. This paper separates the two components with an indicator published by the national assessment agency (INEP): the IDD, which compares the scores of each course's graduates in the graduation exam (Enade) with the scores predicted by their Enem results, in a multilevel model estimated for each area \citep{inep2023idd}. Because the IDD and the raw Enade score are on the same scale, the federal advantage can be decomposed into a part that was present at entry and a part that corresponds to value added.
+
+The paper makes four contributions. First, it measures, for the two most recent editions (2022 and 2023, which assessed different groups of areas), how much of the raw advantage of federal courses over private courses in the same area is selection and how much is value added, with confidence intervals and, for 2023, with regressions that control for modality, institution type, course size, state and the composition of the entering cohort. Second, it tests a direct implication of the selection explanation: the federal advantage should shrink where federal courses face little competition for seats. Third, it shows that the method used to compute the IDD until 2021 removed most of each course's own effect from the indicator, the more so the larger the course, and that this is why the federal value-added gap is close to zero in every edition from 2014 to 2021 and appears only after INEP changed the method in 2022. Any comparison of institutions based on the IDD of those editions is affected in the same way. Fourth, it relates value added to current spending per student across 66 federal universities.
+
+The answer to the main question is that selection explains most of the federal advantage. Comparing courses in the same area, federal graduates score 12.7 points above for-profit private graduates in 2023, on a 0--100 scale whose within-area student standard deviation is 13.6 points, and 11.7 points in 2022. Their value-added advantage is 2.6 and 2.7 points, about 0.2 student standard deviations: 80\% and 77\% of the raw gap was already present at entry. Among the courses with at least 40 graduates with an Enem score, where the current method distorts least, the share is 74\% in 2022 and 77\% in 2023. State universities, which are also public and selective, show the same pattern. In the 64 federal courses with fewer than two applicants per seat, the raw gap falls to 7.0 points, while the value-added gap shows no clear change. Among federal universities, spending more per student is not associated with more value added, even after accounting for graduate-program intensity.
+
+The rest of the paper is organized as follows. Section~\ref{sec:background} describes the institutional setting. Section~\ref{sec:literature} relates the paper to the literature. Section~\ref{sec:data} presents the data and Section~\ref{sec:method} the empirical strategy. Section~\ref{sec:results} reports the results, Section~\ref{sec:discussion} discusses interpretation and limitations, and Section~\ref{sec:conclusion} concludes.
+
+%======================================================================
+\section{Institutional background}\label{sec:background}
+%======================================================================
+
+\paragraph{Providers.} Brazilian higher education combines a tuition-free public sector with a large private sector. Public institutions belong to the federal government, to the states or to municipalities. Federal institutions include universities and federal institutes of education, science and technology, and are financed by the federal budget. Private institutions may be for-profit or non-profit; the latter include community and confessional institutions. In the 2024 Higher Education Census, federal institutions had 1.32 million undergraduate enrolments, and for-profit private institutions 6.37 million \citep{inepcenso}.
+
+\paragraph{Admission.} Most federal institutions admit students through Sisu, a centralized platform that ranks applicants by a weighted average of their Enem scores. Since the quota law of 2012, federal institutions must reserve at least half of their seats in each course and shift for students who completed secondary school entirely in public schools, with sub-quotas by family income and race; the law required institutions to implement at least a quarter of the reserve each year and to comply fully within four years \citep[arts.~1 and~8]{lei12711}. Private institutions set their own admission rules, which are rarely competitive, and admit students who receive federal scholarships (ProUni) or loans (Fies) based on their Enem score. In 2018, when most of the 2023 graduates entered, the median federal course assessed by Enade had 11.6 applicants per seat, against 1.6 in the median for-profit private course.
+
+\paragraph{Assessment.} Enade is a mandatory exam taken by graduating students in a rotating set of areas; each area is assessed every three years, with an interruption during the pandemic. It has a general-education component (weight 0.25) and an area-specific component (weight 0.75). INEP publishes, for each course, the raw Enade score and the IDD. To compute the IDD, INEP links graduates to their Enem scores from the three years before entry or from the entry year, and estimates for each area a multilevel linear model of the Enade score on the four Enem objective-test scores with a random intercept for each course \citep{inep2022idd,inep2023idd}. Courses need at least two graduates and at least 20\% of graduates with a recovered Enem score. The raw IDD is then standardized within the area to produce a 0--5 score and a 1--5 grade. The definition of the raw IDD changed in 2022. Until 2021, it was the mean, among the course's graduates, of the difference between the observed Enade score and a predicted score that included the course's own estimated intercept \citep{inep2020idd,inep2022idd,terhaar2021}. From 2022, it is the estimated intercept itself, that is, the course's own effect \citep{inep2023idd}. INEP applied the new method to the 2022 indicators and kept the old one for the 2019 and 2021 editions of the same evaluation cycle \citep{inep2024igc}. Section~\ref{sec:method_change} shows why the change matters for comparisons between sectors.
+
+%======================================================================
+\section{Related literature}\label{sec:literature}
+%======================================================================
+
+The question of whether selective institutions add more than they select has a long history. \citet{dale2002} compare students who were admitted to the same set of colleges and find that the earnings premium associated with attending a more selective college largely disappears once this selection is taken into account, except for students from disadvantaged backgrounds; \citet{dale2014} reach similar conclusions with administrative earnings data over the career. \citet{abdulkadiroglu2014} use admission cutoffs at the elite exam schools of Boston and New York and find little effect on achievement, despite large differences in peer quality. In contrast, \citet{hoekstra2009} finds an earnings premium for students just above the admission cutoff of a flagship state university. \citet{kirkeboen2016} show, with Norwegian admission data, that returns differ substantially across fields of study and that students sort on their expected gains, which is one reason this paper compares courses only within the same area.
+
+Value-added measures for higher-education institutions are sensitive to what they control for. \citet{cunha2014} show with administrative data from Texas that estimated institutional value added changes considerably when controls for student characteristics and application behaviour are added. In Brazil, the IDD is the official value-added measure and enters the composite course score used for regulation. \citet{terhaar2021} shows that the method INEP used to compute it averaged out the part of the Enade score that the model attributes to the course, and proposes using the estimated course intercepts instead, which is the definition INEP adopted from 2022 \citep{inep2023idd}. \citet{wainer2018} use Enade data from 2012 to 2014 and find that ProUni scholarship holders score above their classmates in the same course.
+
+The paper also relates to work on affirmative action and centralized admission in Brazil, which shape who enters federal universities. \citet{francis2012} study the short-term effects of racial quotas at the University of Bras\'{i}lia, and \citet{mello2022} studies how Sisu and the quota law changed access of low-income students to federal institutions. The broader literature on whether students admitted under preferences are hurt by attending more selective institutions is reviewed by \citet{arcidiacono2016}; \citet{bleemer2022} finds that the end of affirmative action at the University of California reduced degree attainment and wages of under-represented students.
+
+\todo{Expand: (i) Brazilian studies comparing public and private institutions with Enade or IGC; (ii) studies of the IDD and of the composite course score (CPC); (iii) evidence on costs of Brazilian public universities beyond \citet{worldbank2017} and \citet{bielschowsky2022}; (iv) studies that used the IDD of editions up to 2021 to compare institutions, which are affected by the attenuation documented in Section~\ref{sec:method_change}. Each reference to be verified in the source before inclusion.}
+
+%======================================================================
+\section{Data}\label{sec:data}
+%======================================================================
+
+The unit of analysis is the course, defined as a degree programme of an institution in a given municipality, as identified by INEP. The main sources are the course-level spreadsheets of the Conceito Enade and of the IDD for 2022 and 2023 \citep{inepidd2022,inepidd2023}, which report the raw scores of the general-education and area-specific components, the raw IDD, the number of participating graduates and the number of graduates with a recovered Enem score. The 2023 edition assessed health sciences, agrarian sciences, engineering, architecture and some technology programmes; the 2022 edition assessed applied social sciences, such as management, law, accounting and economics, and related technology programmes. For Section~\ref{sec:method_change}, I also use the spreadsheets of every edition from 2014 to 2021 \citep{inepidd2019,inepindicadores}. The share of graduates who attended a private secondary school is computed for each course from the 2023 Enade student questionnaire \citep{inepenade}. Public Enade microdata do not allow individual scores to be linked to individual questionnaire answers, so this variable is used at the course level only.
+
+For 2023, each course is linked to its record in the 2018 Higher Education Census \citep{inepcenso}, the typical entry year of graduates of four- and five-year programmes. From the Census I take the number of applicants and new seats, which measure competition for admission, and the composition of the entering cohort: the shares of entrants from private secondary schools, aged 25 or older, in evening classes, with Fies loans or ProUni scholarships, and admitted through reserved seats. The competition and composition measures are therefore available for 2023 only; for 2022, the analysis is limited to the within-area comparison.
+
+For the analysis of costs, the current spending of each federal university in 2024 is taken from the federal budget execution data \citep{cgu2024}, excluding pensions, special charges, capital spending and university hospitals, and divided by in-person undergraduate enrolments from the 2024 Census. Graduate-program intensity is measured with 2024 open data from CAPES \citep{capes2024}. For seven universities that publish the cost indicators required by the federal audit court, my measure is between 23\% below and 9\% above theirs.
+
+The analysis sample includes courses with at least one participating graduate and at least one graduate with a recovered Enem score, which leaves 8,830 courses in 2023 and 7,569 in 2022. Table~\ref{tab:descriptives} describes the 2023 sample by administrative category. Federal courses have 66,000 participating graduates, against 154,000 in for-profit private courses. Coverage of the Enem link is higher in federal courses (95\%) than in for-profit courses (66\%), and 18\% of for-profit graduates are in distance-learning courses. In 2022, the coverage was 92\% and 54\%.
+
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Courses and graduates by administrative category, Enade 2023}\label{tab:descriptives}
+\resizebox{\linewidth}{!}{\input{tables/tab_descriptives}}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} Courses with at least one participating graduate and one graduate with a recovered Enem score. ``With Enem'' is the share of participating graduates with a recovered Enem score. ``Private HS'' is the share of graduates who attended a private secondary school (Enade questionnaire), weighted by respondents. ``Applicants/seat'' is the median ratio of applicants to new seats in the 2018 Higher Education Census. \textit{Sources:} INEP, Conceito Enade, IDD and Enade microdata; 2018 Higher Education Census.
+\end{minipage}
+\end{table}
+
+%======================================================================
+\section{Empirical strategy}\label{sec:method}
+%======================================================================
+
+\paragraph{Within-area comparison.} Let $N_c$ be the raw Enade score of course $c$ (0.25 times the general-education score plus 0.75 times the area-specific score) and $V_c$ its raw IDD. For a group $G$ of federal courses and the set $B$ of for-profit private courses, the within-area gap is
+\begin{equation}\label{eq:matched}
+\Delta^N_G=\sum_{a} \omega_{a}\Big(\bar N_{G,a}-\bar N_{B,a}\Big), \qquad
+\Delta^V_G=\sum_{a} \omega'_{a}\Big(\bar V_{G,a}-\bar V_{B,a}\Big),
+\end{equation}
+where $\bar N_{G,a}$ is the mean raw score of the federal courses of group $G$ in area $a$, weighted by participating graduates, $\bar V_{G,a}$ the mean raw IDD weighted by graduates with an Enem score, and the area weights $\omega_a$ and $\omega'_a$ are the shares of the group's graduates in each area. This is the average gap between a federal graduate and a for-profit graduate of the same area. Since $N_c$ and $V_c$ are on the same scale, $1-\Delta^V/\Delta^N$ is the share of the raw gap that was already present at entry. Confidence intervals come from bootstrap replications that resample courses within area and category: 500 for the analysis of competition for seats in 2023 and 200 for the comparisons across editions.
+
+\paragraph{Regressions.} To control for other course characteristics and to compare all administrative categories, I estimate for 2023
+\begin{equation}\label{eq:reg}
+Y_c=\alpha_{a(c)}+\sum_{k}\beta_k\,\mathbb{1}[k(c)=k]+X_c'\gamma+\varepsilon_c,
+\end{equation}
+where $Y_c$ is $N_c$ or $V_c$, $\alpha_a$ are area fixed effects, $k$ indexes administrative categories with for-profit private courses as the reference, and $X_c$ includes, depending on the specification, indicators for distance learning and for the type of institution (university, university centre, college, federal institute), the logarithm of the number of participating graduates, state fixed effects and the composition of the entering cohort in 2018. Regressions are weighted by participating graduates for $N_c$ and by graduates with an Enem score for $V_c$, and standard errors are clustered by institution.
+
+\paragraph{Competition for seats.} If the federal advantage reflects selection, it should be smaller where federal courses select less. I compare, with equation~\eqref{eq:matched}, federal courses with fewer than two applicants per seat in 2018, a level of competition typical of private colleges, and federal courses grouped by terciles of applicants per seat within each area. In the regressions, I interact the federal indicator with the logarithm of one plus applicants per seat and with an indicator for fewer than two applicants per seat.
+
+\paragraph{Cost.} For each federal university $u$, $V_u$ is the mean raw IDD of its courses relative to the mean of their areas, weighted by graduates with an Enem score, and $C_u$ is current cost per in-person undergraduate. I estimate $V_u=\alpha+\beta C_u+\gamma'Z_u+\varepsilon_u$, where $Z_u$ includes graduate students per undergraduate and the mean CAPES grade of the university's graduate programmes.
+
+%======================================================================
+\section{Results}\label{sec:results}
+%======================================================================
+
+\subsection{Selection and value added}
+
+Table~\ref{tab:matched} reports the within-area gaps between federal and private courses in the two editions computed with the current IDD method. In 2023, federal graduates scored 12.7 points above for-profit graduates of the same area, and their value-added advantage was 2.6 points: 80\% of the raw gap was present at entry. In 2022, in a different group of areas, the raw gap was 11.7 points and the value-added gap 2.7 points, so that 77\% was present at entry. Relative to all private courses, including non-profit ones, the shares are 78\% and 82\%. Measured in standard deviations of individual Enade scores within area (13.6 points in 2023), the value-added advantage of federal courses in 2023 was 0.19.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Federal minus private courses of the same area, Enade 2022 and 2023}\label{tab:matched}
+\input{tables/tab_matched}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} Gaps in Enade points (0--100 scale), computed with equation~\eqref{eq:matched}. 95\% bootstrap intervals in brackets (200 replications, resampling courses within area and category). The student standard deviation is the within-area standard deviation of individual Enade scores in 2023 (13.6 points); Enade 2022 microdata were not used. \textit{Sources:} INEP, Conceito Enade and IDD spreadsheets; author's calculations.
+\end{minipage}
+\end{table}
+
+Tables~\ref{tab:regraw} and~\ref{tab:regva} report the regressions for 2023. With area fixed effects only, the federal coefficient is 13.3 points for the raw score and 2.9 points for value added. Adding modality, institution type, size and state fixed effects changes them little. Adding the composition of the entering cohort, which absorbs part of the selection itself, reduces the federal raw-score coefficient to 8.8 points and the value-added coefficient to 1.9 points; the share of the raw gap present at entry stays at 78\% to 79\%. State universities, which are also public, tuition-free and selective, show almost the same pattern as federal universities: 11.2 points of raw advantage and 2.9 points of value added. Figure~\ref{fig:gaps} summarizes the coefficients for all categories.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Raw Enade score: regressions on administrative category, Enade 2023}\label{tab:regraw}
+\input{tables/tab_reg_raw}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} Weighted least squares, weights equal to participating graduates. Reference category: private for-profit courses. Standard errors clustered by institution in parentheses. Municipal and special categories are included but not shown. Entering-cohort composition: shares of entrants in 2018 from private secondary schools, aged 25 or older, in evening classes, with Fies or ProUni, admitted through reserved seats, and log enrolment. $^{*}$, $^{**}$, $^{***}$: significant at 5\%, 1\% and 0.1\%.
+\end{minipage}
+\end{table}
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Value added (raw IDD): regressions on administrative category, Enade 2023}\label{tab:regva}
+\input{tables/tab_reg_va}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} As in Table~\ref{tab:regraw}, with weights equal to graduates with a recovered Enem score.
+\end{minipage}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.75\linewidth]{figures/fig_gaps.pdf}
+\caption{Raw score and value-added gaps relative to for-profit private courses of the same area. Coefficients of the regressions with area fixed effects (column 1 of Tables~\ref{tab:regraw} and~\ref{tab:regva}), Enade 2023, with 95\% confidence intervals.}\label{fig:gaps}
+\end{figure}
+
+\subsection{Competition for seats}
+
+Table~\ref{tab:selectivity} reports the within-area gaps by level of competition. In the 64 federal courses with fewer than two applicants per seat in 2018, mostly in agronomy, animal science and engineering, the raw gap falls from 12.7 to 7.0 points. The value-added gap falls to 1.4 points, but this result depends on 24 of these courses that reported exactly one applicant per seat, which is more likely a reporting convention than a measure of demand; without them, the raw gap is 9.1 points and the value-added gap 2.6 points, the same as for all federal courses. Above a few applicants per seat, competition matters little: across terciles of applicants per seat within area, the raw gap varies between 12.3 and 13.3 points, and the value-added gap is, if anything, larger in the least competitive tercile.
+
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Federal minus for-profit private courses, by competition for seats in 2018}\label{tab:selectivity}
+\resizebox{\linewidth}{!}{\input{tables/tab_selectivity}}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} As in Table~\ref{tab:matched}, Enade 2023. Applicants per seat: applicants divided by new seats in the 2018 Higher Education Census. Terciles are defined within each assessment area. Federal courses without a 2018 Census record are included only in the first row.
+\end{minipage}
+\end{table}
+
+The regressions in Table~\ref{tab:interactions} confirm this pattern. Competition for seats is positively associated with raw scores in all categories. The federal advantage in raw scores is about 2 to 3 points smaller in low-demand courses, while the federal advantage in value added does not vary with low demand and, measured with the continuous variable, is slightly smaller in the most competitive federal courses. Where federal courses select less, their graduates' advantage at graduation is smaller, but the part of the advantage that the IDD attributes to the course is not.
+
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Interactions between the federal indicator and competition for seats, Enade 2023}\label{tab:interactions}
+\resizebox{\linewidth}{!}{\input{tables/tab_interactions}}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} Specification of column 2 of Tables~\ref{tab:regraw} and~\ref{tab:regva} plus the competition variable (``Main'') and its interaction with the federal indicator (``Interaction''). Standard errors clustered by institution in parentheses.
+\end{minipage}
+\end{table}
+
+\subsection{Robustness}
+
+Table~\ref{tab:robustness} shows that the federal coefficients for 2023 are stable when the regressions are unweighted, when distance-learning courses are excluded, when the sample is restricted to universities, to courses with at least 20 graduates with an Enem score or to courses where at least half of the graduates have an Enem score. Controlling for the course's Enem coverage reduces both coefficients but leaves the share of the raw gap present at entry at 80\%. The value-added gap is also similar in courses with Enem coverage below 50\%, between 50\% and 80\% and above 80\% (2.2, 2.0 and 2.2 points).
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Robustness of the federal coefficients, Enade 2023}\label{tab:robustness}
+\input{tables/tab_robustness}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} Federal coefficients from the specification of column 2 of Tables~\ref{tab:regraw} and~\ref{tab:regva}. Standard errors clustered by institution in parentheses.
+\end{minipage}
+\end{table}
+
+\subsection{Earlier editions and the IDD method}\label{sec:method_change}
+
+Table~\ref{tab:series} and Figure~\ref{fig:series} extend the within-area comparison to every Enade edition with course-level IDD, from 2014 to 2023. Each group of areas is assessed every three years, with a four-year gap during the pandemic, so the series contains three editions for each group. For 2014 and 2015 the IDD is taken from the CPC spreadsheets, and the 2015 spreadsheet does not separate for-profit from non-profit private institutions, so the table also reports gaps relative to all private courses. In every edition up to 2021 and in every group of areas, the federal value-added gap lies between $-0.35$ and $0.41$ points, which would put the share of the raw gap present at entry between 95\% and 104\%. In 2022 and 2023, in two different groups of areas, the gap is between 2.0 and 2.7 points. The break coincides with the change in the definition of the IDD described in Section~\ref{sec:background}.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Federal minus private courses of the same area, every Enade edition with course-level IDD}\label{tab:series}
+\resizebox{\linewidth}{!}{\input{tables/tab_series}}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} Gaps computed with equation~\eqref{eq:matched}; 95\% bootstrap intervals for the value-added gap in brackets (200 replications). The IDD of 2014 to 2021 was computed with the method in place until 2021; that of 2022 and 2023 with the current method. Area groups follow the three-year Enade cycle: group I (2016, 2019, 2023) covers mainly health and agrarian sciences, group II (2014, 2017, 2021) mainly sciences, humanities and teacher training, and group III (2015, 2018, 2022) mainly applied social sciences such as management and law. Engineering and architecture were assessed in group II until 2017 and in group I from 2019. 2014 and 2015: IDD from the CPC spreadsheets; the 2015 spreadsheet does not distinguish for-profit and non-profit private institutions. There was no Enade in 2020. \textit{Sources:} INEP, Conceito Enade, IDD and CPC spreadsheets, 2014--2023.
+\end{minipage}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/fig_series.pdf}
+\caption{Value-added gap between federal and private courses of the same area, by Enade edition and group of areas, with 95\% bootstrap intervals. The dashed line marks the change in the IDD method; the shaded band marks the interruption of Enade in 2020.}\label{fig:series}
+\end{figure}
+
+In INEP's model, the Enade score of graduate $i$ in course $c$ is $C_{ic}=\gamma_0+u_c+X_{ic}'\beta+e_{ic}$, where $X_{ic}$ are the four Enem scores, $u_c$ is the course's random intercept, with variance $\tau^2$, and $e_{ic}$ has variance $\sigma^2$. Let $\bar r_c$ be the mean of $C_{ic}-\hat\gamma_0-X_{ic}'\hat\beta$ over the $n_c$ graduates of the course with an Enem score. The estimated course effect is the shrunken mean
+\begin{equation}\label{eq:blup}
+\hat u_c=\lambda_c\,\bar r_c,\qquad \lambda_c=\frac{\tau^2}{\tau^2+\sigma^2/n_c}.
+\end{equation}
+Until 2021, the predicted score of each graduate included $\hat u_c$, so the raw IDD was the part of the course's mean residual that the model did not attribute to the course \citep{terhaar2021}. From 2022, it is the estimated course effect \citep{inep2023idd}:
+\begin{equation}\label{eq:idd}
+\mathrm{IDD}^{\mathrm{old}}_c=\bar r_c-\hat u_c=(1-\lambda_c)\,\bar r_c,\qquad \mathrm{IDD}^{\mathrm{new}}_c=\hat u_c=\lambda_c\,\bar r_c .
+\end{equation}
+As the number of graduates grows, $\lambda_c$ approaches one: the old IDD of a large course approaches zero whatever the course adds, and the new IDD approaches the course's mean residual. In small courses the opposite happens. These expressions ignore the exclusion of students with outlying residuals, which INEP applies in both methods.
+
+Table~\ref{tab:method} shows both patterns in the data. With the old method, the dispersion of the raw IDD around the area mean falls from about 5 points in courses with up to five graduates with an Enem score to about 0.4 points in courses with more than 80 in 2019 and 2021, and to 1.1 points or less in every edition from 2014 to 2018. With the new method, it rises with the number of graduates and stabilizes at about 3.2 points. The federal value-added gap follows the same pattern. With the old method, it is 1.6 to 2.1 points among federal courses with fewer than 15 graduates with an Enem score, and about 0.1 points among those with 40 or more, which account for 70\% of federal graduates with an Enem score. With the new method, the gap is largest among the larger courses: 3.6 points in 2022 and 3.3 points in 2023.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{The IDD method and course size: dispersion of the IDD and federal gaps}\label{tab:method}
+\input{tables/tab_method}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} Size bands by the number of participating graduates with a recovered Enem score in the course. Panel A: standard deviation across courses of the raw IDD minus the mean raw IDD of the area. Panels B and C: equation~\eqref{eq:matched} applied to the federal and for-profit courses of each size band; 95\% bootstrap intervals in brackets (200 replications). The 2019 and 2023 editions assessed the same group of areas; 2021 and 2022 assessed groups II and III. \textit{Sources:} INEP, Conceito Enade and IDD spreadsheets; author's calculations.
+\end{minipage}
+\end{table}
+
+The old method therefore pulls differences between groups of courses toward zero, more so for groups with larger courses. The near-zero federal gaps of 2014 to 2021 are a property of the indicator, not evidence that federal courses added nothing. Where each method distorts least, the two agree with the estimates of Table~\ref{tab:matched}. Among the smallest courses of 2019, where the old method keeps most of the course effect, the federal value-added gap is 2.1 points out of a raw gap of 10.7, so 80\% of the raw gap was present at entry; since part of the course effect is removed even there, this share is an upper bound. Among the courses of 2023 with at least 40 graduates with an Enem score, where the new method shrinks least, the gap is 3.3 points out of 14.2, and 77\% was present at entry. The new method has its own, smaller, bias: it pulls the effects of small courses toward the area mean, which is why the 2022 and 2023 gaps are smaller among them. The shares among courses with 40 or more graduates, 74\% in 2022 and 77\% in 2023, give a sense of the size of this bias for the estimates of Table~\ref{tab:matched}.
+
+\subsection{Cost and value added among federal universities}
+
+Among the 66 federal universities with sufficient data, current cost per in-person undergraduate in 2024 ranged from about R\$~21,000 to R\$~55,000, with a median of R\$~40,000. Figure~\ref{fig:cost} and Table~\ref{tab:cost} show that higher spending is not associated with more value added. The third of universities with the highest cost spend on average R\$~48,000 per student, R\$~9,000 more than the middle third, and have a lower mean value added (1.5 against 1.9 points). The slope of value added on cost is 0.03 points per R\$~1,000, with a correlation of 0.17 that is not statistically significant. Graduate-program intensity explains about a third of the variation in cost across universities (graduate students per undergraduate and the mean CAPES grade together have an $R^2$ of 0.35), but controlling for it leaves the slope of value added on cost unchanged (0.03, $t=1.1$).
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Cost per student and value added, federal universities}\label{tab:cost}
+\input{tables/tab_cost_terciles}
+\begin{minipage}{\linewidth}\vspace{0.4em}\scriptsize
+\textit{Notes:} 66 federal universities with at least 30 graduates with an Enem score in Enade 2023; UNIVASF excluded because of inconsistent enrolment data. Cost: current spending in 2024 excluding pensions, special charges, capital and university hospitals, divided by in-person undergraduate enrolments in 2024. Value added: mean raw IDD of the university's courses relative to the area mean, weighted by graduates with an Enem score. \textit{Sources:} Portal da Transpar\^encia; 2024 Higher Education Census; INEP, IDD 2023.
+\end{minipage}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.72\linewidth]{figures/fig_cost.pdf}
+\caption{Current cost per in-person undergraduate (2024) and mean value added (IDD 2023), 66 federal universities, with the least-squares line.}\label{fig:cost}
+\end{figure}
+
+%======================================================================
+\section{Discussion}\label{sec:discussion}
+%======================================================================
+
+The main result holds across specifications, samples and the two editions computed with the current method: about four fifths of the advantage of federal graduates at graduation was present at entry. What remains is a value-added advantage of about a fifth of a student standard deviation. That federal universities spend considerably more per student than private institutions, and that spending more does not predict more value added across federal universities, suggests that the additional cost buys little additional learning as measured by Enade.
+
+Several limitations qualify these conclusions. The IDD only controls for what the Enem measures; unobserved differences in motivation, effort or study conditions between federal and private students would bias the value-added gap, most likely in favour of the more selective federal courses, which would strengthen the conclusion that the gap is mostly selection. The model behind the IDD also assumes that course effects are unrelated to students' Enem scores; if better courses attract students with higher scores, the Enem coefficients absorb part of the course effect and the IDD understates the value added of selective courses. The current IDD shrinks the effects of small courses, as shown in Section~\ref{sec:method_change}, and, because the method changed in 2022, the published IDD cannot measure how the federal advantage changed over time; that would require recomputing earlier editions with the current method from student-level data. The IDD is computed only for graduates with a recovered Enem score, whose share differs across categories and editions. Enade measures learning in a single exam that has no consequences for students, and differences in effort across institutions cannot be ruled out. The analysis is at the course level because public microdata do not link individual scores to individual characteristics; access to identified data through INEP's protected-data service would allow student-level estimates with richer controls. Finally, the analysis compares the federal sector with the for-profit private sector, which serves a different population and charges tuition; a comparison of costs between the two sectors depends on how research, pensions and the tuition paid in the private sector are treated \citep{bielschowsky2022}.
+
+\todo{Discussion of ProUni: scholarship holders' Enade performance relative to classmates \citep{wainer2018} and the cost of the tax expenditure, with the caveat that the comparison is with classmates, not with federal students.}
+
+%======================================================================
+\section{Conclusion}\label{sec:conclusion}
+%======================================================================
+
+Federal universities in Brazil graduate students who score far above those of for-profit private institutions, but most of that advantage was there when the students arrived. About four fifths of the raw gap in the national graduation exam corresponds to differences at entry, in both editions computed with the current value-added method; where federal courses select less, their raw advantage shrinks by about half. The value-added advantage that remains is about a fifth of a student standard deviation. Earlier editions of the official indicator understated it, because the method used until 2021 removed most of each course's own effect, the more so the larger the course. Within the federal system, spending more per student is not associated with more value added. Raw indicators of quality, which reward selection, are therefore a poor guide to how much public universities teach.
+
+\section*{Data and code availability}
+All data are public. Code and intermediate results are available at \url{https://github.com/Caioalexnes/higher-education-analysis}; a versioned copy will be deposited on Zenodo.
+
+\section*{Declaration of generative AI use}
+The analysis code, tables, figures and a first draft of this text were produced with the assistance of a generative AI system (Claude, Anthropic), working under the author's direction. The author reviewed the code, the results and the text, and takes full responsibility for the content, including the accuracy of the references.
+
+\section*{Funding and competing interests}
+The author received no funding for this work and reports no competing interests.
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

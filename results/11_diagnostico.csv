@@ -1,0 +1,57 @@
+item;ano;grupo;valor
+sd_idd_curso;2019;all;1.7790
+sd_nota_curso;2019;all;9.2474
+areas;2019;all;29.0000
+cobertura_enem;2019;Pública Federal;0.8971
+participantes;2019;Pública Federal;67561.0000
+pct_ead;2019;Pública Federal;0.0008
+cobertura_enem;2019;Privada com fins lucrativos;0.7293
+participantes;2019;Privada com fins lucrativos;159312.0000
+pct_ead;2019;Privada com fins lucrativos;0.0386
+gap_nota;2019;all areas;11.6422
+gap_idd;2019;all areas;0.2968
+gap_idd_em_dp_curso;2019;all areas;0.1669
+sd_idd_curso;2023;all;2.9454
+sd_nota_curso;2023;all;9.9145
+areas;2023;all;28.0000
+cobertura_enem;2023;Pública Federal;0.9512
+participantes;2023;Pública Federal;66171.0000
+pct_ead;2023;Pública Federal;0.0042
+cobertura_enem;2023;Privada com fins lucrativos;0.6598
+participantes;2023;Privada com fins lucrativos;153722.0000
+pct_ead;2023;Privada com fins lucrativos;0.1834
+gap_nota;2023;all areas;12.7212
+gap_idd;2023;all areas;2.5667
+gap_idd_em_dp_curso;2023;all areas;0.8714
+areas_comuns;2019;n;27.0000
+gap_nota;2019;common areas;11.7263
+gap_idd;2019;common areas;0.3061
+cursos_federais;2019;common areas;1322.0000
+gap_nota;2019;balanced course panel;11.7870
+gap_idd;2019;balanced course panel;0.2921
+cursos_federais;2019;balanced course panel;1272.0000
+gap_idd_por_cobertura;2019;0.0-0.5;2.1555
+gap_nota_por_cobertura;2019;0.0-0.5;10.9688
+gap_idd_por_cobertura;2019;0.5-0.8;0.4010
+gap_nota_por_cobertura;2019;0.5-0.8;12.3514
+gap_idd_por_cobertura;2019;0.8-1.0;0.1957
+gap_nota_por_cobertura;2019;0.8-1.0;10.7605
+areas_comuns;2023;n;27.0000
+gap_nota;2023;common areas;12.7371
+gap_idd;2023;common areas;2.5622
+cursos_federais;2023;common areas;1430.0000
+gap_nota;2023;balanced course panel;12.2359
+gap_idd;2023;balanced course panel;2.3027
+cursos_federais;2023;balanced course panel;1272.0000
+gap_idd_por_cobertura;2023;0.0-0.5;2.1787
+gap_nota_por_cobertura;2023;0.0-0.5;10.1808
+gap_idd_por_cobertura;2023;0.5-0.8;2.0232
+gap_nota_por_cobertura;2023;0.5-0.8;7.7870
+gap_idd_por_cobertura;2023;0.8-1.0;2.2225
+gap_nota_por_cobertura;2023;0.8-1.0;11.7404
+mudanca_idd_mesmo_curso;2019-2023;Pública Federal;1.5026
+mudanca_nota_mesmo_curso;2019-2023;Pública Federal;3.1600
+cursos_no_painel;2019-2023;Pública Federal;1272.0000
+mudanca_idd_mesmo_curso;2019-2023;Privada com fins lucrativos;-0.7278
+mudanca_nota_mesmo_curso;2019-2023;Privada com fins lucrativos;3.7690
+cursos_no_painel;2019-2023;Privada com fins lucrativos;2425.0000

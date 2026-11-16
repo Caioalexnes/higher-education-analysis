@@ -1,0 +1,12 @@
+modelo;variavel;coeficiente;erro_padrao;t;r2;universidades
+(1) IDD ~ custo;constante;0.1127;0.9252;0.12;0.029;66
+(1) IDD ~ custo;custo (R$ mil);0.0323;0.0232;1.39;0.029;66
+(2) IDD ~ custo + pós + conceito;constante;-3.3336;2.0465;-1.63;0.107;66
+(2) IDD ~ custo + pós + conceito;custo (R$ mil);0.0312;0.028;1.11;0.107;66
+(2) IDD ~ custo + pós + conceito;pós por aluno de graduação;-2.5478;3.8412;-0.66;0.107;66
+(2) IDD ~ custo + pós + conceito;conceito Capes médio;0.9417;0.4898;1.92;0.107;66
+(3) custo ~ pós + conceito;constante;47.1926;7.0166;6.73;0.348;66
+(3) custo ~ pós + conceito;pós por aluno de graduação;76.7588;14.2992;5.37;0.348;66
+(3) custo ~ pós + conceito;conceito Capes médio;-5.5051;2.0889;-2.64;0.348;66
+(4) IDD ~ custo por aluno-equivalente;constante;0.8087;1.0402;0.78;0.005;66
+(4) IDD ~ custo por aluno-equivalente;custo por aluno-equivalente (R$ mil);0.0201;0.0365;0.55;0.005;66
