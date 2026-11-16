@@ -1,0 +1,18 @@
+ano;base;metodo;dif_nota;dif_idd_bruto;dif_idd_atual_comum;dif_idd_atual_area;dif_rbar_comum
+2014;all private;old;5.9573;-0.0817;-0.0058;0.6027;-0.0875
+2014;private for-profit;old;8.2306;0.1772;0.0005;0.9765;0.1777
+2015;all private;old;8.0221;-0.3312;-0.2974;-0.3012;-0.6286
+2016;all private;old;8.0338;-0.1107;-0.5536;0.0542;-0.6643
+2016;private for-profit;old;8.6717;-0.0129;-0.5676;0.4600;-0.5806
+2017;all private;old;6.3707;-0.1425;-0.2072;-0.2608;-0.3497
+2017;private for-profit;old;7.9873;0.0270;0.0105;0.4833;0.0375
+2018;all private;old;8.5271;-0.3481;-0.5805;-0.3844;-0.9286
+2018;private for-profit;old;9.9714;-0.3239;-0.6506;-0.2962;-0.9746
+2019;all private;old;10.6258;0.2038;0.2426;0.8270;0.4464
+2019;private for-profit;old;11.6422;0.2968;0.4522;1.2633;0.7491
+2021;all private;old;6.9863;0.0924;-0.6463;0.1861;-0.5539
+2021;private for-profit;old;8.2596;0.4137;-0.4965;0.6118;-0.0828
+2022;all private;new;10.2522;2.2773;2.2773;2.2773;2.5965
+2022;private for-profit;new;11.7396;2.6985;2.6985;2.6985;3.1488
+2023;all private;new;11.0262;1.9852;1.9852;1.9852;2.4968
+2023;private for-profit;new;12.7212;2.5667;2.5667;2.5667;3.3526

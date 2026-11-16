@@ -1,6 +1,6 @@
 # Selection or Teaching? Value Added and Cost in Brazilian Federal Universities
 
-Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.3, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
+Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.4, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
 
 The paper asks how much of the advantage of Brazilian federal universities in the national graduation exam (Enade) is selection and how much is teaching. It compares federal and private courses of the same assessment area using the raw Enade score and INEP's value-added indicator (IDD). It also shows that the method INEP used to compute the IDD until 2021 pulled course effects toward zero, more so in larger courses, which is why earlier editions show almost no value-added gap between federal and private courses.
 
@@ -9,7 +9,7 @@ All data are public. This repository contains the code, the intermediate results
 ## Repository structure
 
 ```
-code/        Python scripts 01-13 and config.py
+code/        Python scripts 01-14 and config.py
 results/     CSV outputs of the scripts (the inputs of the paper's tables and figures)
 paper/       paper.tex, refs.bib, build_tables.py, tables/, figures/, paper.pdf
 ```
@@ -77,6 +77,7 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `11_diagnostico_2019_2023.py` | Diagnostics of the 2019 and 2023 gaps | Value-added gap by Enem coverage band in 2023 (Section 6.3) |
 | `12_serie_historica.py` | Within-area gaps in every edition with course-level IDD, 2014-2023 | Tables 2 and 8, Figure 2 |
 | `13_metodo_idd.py` | Dispersion of the IDD and federal gaps by course size, every edition | Table 9 |
+| `14_reconstrucao_idd.py` | Approximate conversion of the 2014-2021 IDD to the current method, from course-level data (inconclusive; see Section 6.4) | Section 6.4 (text) |
 
 The comparisons by category in scripts 02 and 06 subtract national means of area deviations and are superseded by the within-area comparison of script 10, which the paper uses.
 
