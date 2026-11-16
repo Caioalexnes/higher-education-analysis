@@ -9,7 +9,7 @@ All data are public. This repository contains the code, the intermediate results
 ## Repository structure
 
 ```
-code/        Python scripts 01-14 and config.py
+code/        Python scripts 01-15 and config.py
 results/     CSV outputs of the scripts (the inputs of the paper's tables and figures)
 paper/       paper.tex, refs.bib, build_tables.py, tables/, figures/, paper.pdf
 ```
@@ -40,6 +40,7 @@ Place the files below in one folder and set the environment variable `DADOS` to 
 | `microdados_enade_2019_LGPD.zip`, `microdados_enade_2023.zip` | INEP, https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enade |
 | `microdados_censo_da_educacao_superior_2018.zip`, `microdados_censo_da_educacao_superior_2024.zip` | INEP, https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior |
 | `microdados_enem_2024.zip` | INEP, https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem |
+| `microdados_IDD_2014.7z` to `microdados_IDD_2019.7z`, `microdados_IDD_2021.zip`, `microdados_IDD_2022.zip`, `microdados_IDD_2023.zip` | INEP, IDD microdata (student level), https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados. The 7z archives and the 2022 file (a RAR archive despite the extension) must be extracted into the data folder |
 | `2024_OrcamentoDespesa.zip` | Portal da Transparência, https://portaldatransparencia.gov.br/download-de-dados/orcamento-despesa/2024 |
 | `br-capes-colsucup-discentes-2024-2025-12-01.csv`, `br-capes-colsucup-prog-2024-2025-12-01.csv` | CAPES open data, https://dadosabertos.capes.gov.br |
 
@@ -84,7 +85,8 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `11_diagnostico_2019_2023.py` | Diagnostics of the 2019 and 2023 gaps | Value-added gap by Enem coverage band in 2023 (Section 6.3) |
 | `12_serie_historica.py` | Within-area gaps in every edition with course-level IDD, 2014-2023 | Tables 2 and 8, Figure 2 |
 | `13_metodo_idd.py` | Dispersion of the IDD and federal gaps by course size, every edition | Table 9 |
-| `14_reconstrucao_idd.py` | Approximate conversion of the 2014-2021 IDD to the current method, from course-level data (inconclusive; see Section 6.4) | Section 6.4 (text) |
+| `14_reconstrucao_idd.py` | Approximate conversion of the 2014-2021 IDD to the current method from course-level data; superseded by script 15 | No |
+| `15_idd_microdados.py` | Recomputes the IDD of each edition from INEP's student-level IDD microdata with both the old and the current definitions, checks them against the published values and computes the federal gaps | Section 6.4 |
 
 The comparisons by category in scripts 02 and 06 subtract national means of area deviations and are superseded by the within-area comparison of script 10, which the paper uses.
 
