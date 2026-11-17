@@ -122,6 +122,10 @@ Code comments, variable names and output columns follow INEP's Portuguese termin
 | `pct_escola_privada` | Share of graduates who attended a private secondary school |
 | `modelo`, `amostra`, `dependente`, `variavel`, `coef`, `ep` | Regression model, sample, dependent variable, regressor, coefficient and standard error |
 
+## Use of generative AI
+
+The code and the text of the paper were produced with the assistance of a generative AI system (Claude, Anthropic), under the author's direction. The declaration at the end of the paper describes what the AI system did and what the author did. Every number in the paper can be reproduced from the public data with the code in this repository.
+
 ## Citation
 
 See [`CITATION.cff`](CITATION.cff). A versioned copy will be deposited on Zenodo.
