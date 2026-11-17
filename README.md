@@ -9,7 +9,7 @@ All data are public. This repository contains the code, the intermediate results
 ## Repository structure
 
 ```
-code/        Python scripts 01-16 and config.py
+code/        Python scripts 01-17 and config.py
 results/     CSV outputs of the scripts (the inputs of the paper's tables and figures)
 paper/       paper.tex, refs.bib, build_tables.py, tables/, figures/, paper.pdf
 ```
@@ -88,6 +88,7 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `14_reconstrucao_idd.py` | Approximate conversion of the 2014-2021 IDD to the current method from course-level data; superseded by script 15 | No |
 | `15_idd_microdados.py` | Recomputes the IDD of each edition from INEP's student-level IDD microdata with both the old and the current definitions, checks them against the published values (they match exactly) and computes the federal gaps | Table 10, Figure 2 |
 | `16_tempo_conclusao.py` | Years between entry and the Enade exam, federal and for-profit graduates of the same area, Enade 2019 and 2023 | No (companion essay) |
+| `17_cenarios_custo.py` | Federal current cost per student (with and without university hospitals and the research discount) against median in-person private tuition (with and without taxes on revenue), per year and per graduate, 2024 | No (companion essay) |
 
 The comparisons by category in scripts 02 and 06 subtract national means of area deviations and are superseded by the within-area comparison of script 10, which the paper uses.
 
