@@ -18,3 +18,5 @@ __pycache__/
 *.blg
 *.bbl
 *.synctex.gz
+*.ttt
+*.fff
