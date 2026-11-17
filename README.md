@@ -9,7 +9,7 @@ All data are public. This repository contains the code, the intermediate results
 ## Repository structure
 
 ```
-code/        Python scripts 01-17 and config.py
+code/        Python scripts 01-18 and config.py
 results/     CSV outputs of the scripts (the inputs of the paper's tables and figures)
 paper/       paper.tex, refs.bib, build_tables.py, tables/, figures/, paper.pdf
 ```
@@ -43,6 +43,7 @@ Place the files below in one folder and set the environment variable `DADOS` to 
 | `microdados_IDD_2014.7z` to `microdados_IDD_2019.7z`, `microdados_IDD_2021.zip`, `microdados_IDD_2022.zip`, `microdados_IDD_2023.zip` | INEP, IDD microdata (student level), https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados. The 7z archives and the 2022 file (a RAR archive despite the extension) must be extracted into the data folder |
 | `2024_OrcamentoDespesa.zip` | Portal da Transparência, https://portaldatransparencia.gov.br/download-de-dados/orcamento-despesa/2024 |
 | `br-capes-colsucup-discentes-2024-2025-12-01.csv`, `br-capes-colsucup-prog-2024-2025-12-01.csv` | CAPES open data, https://dadosabertos.capes.gov.br |
+| `sinopse_educacao_superior_<ano>.zip`, 2015 to 2018 and 2024 (extracted, script 18) | INEP, https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/sinopses-estatisticas/educacao-superior-graduacao |
 
 File names are those of the downloads. INEP occasionally republishes spreadsheets; the versions used here were downloaded in November 2026. [`DATA_SHA256SUMS.txt`](DATA_SHA256SUMS.txt) lists the SHA-256 checksum of each file, so that a new download can be checked against the version used here: run `sha256sum -c DATA_SHA256SUMS.txt` in the data folder (Linux or macOS), or compare with the output of `Get-FileHash <file>` in PowerShell (Windows).
 
@@ -89,6 +90,7 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `15_idd_microdados.py` | Recomputes the IDD of each edition from INEP's student-level IDD microdata with both the old and the current definitions, checks them against the published values (they match exactly) and computes the federal gaps | Table 10, Figure 2 |
 | `16_tempo_conclusao.py` | Years between entry and the Enade exam, federal and for-profit graduates of the same area, Enade 2019 and 2023 | No (companion essay) |
 | `17_cenarios_custo.py` | Federal current cost per student (with and without university hospitals and the research discount) against median in-person private tuition (with and without taxes on revenue), per year and per graduate, 2024 | No (companion essay) |
+| `18_evasao_sinopse.py` | Annual share of severed and suspended enrolments and enrolments per graduate, in-person undergraduate courses of federal universities and private for-profit institutions, 2015-2018 and 2024 (INEP Sinopses Estatísticas, table 7.2) | No (companion essay) |
 
 The comparisons by category in scripts 02 and 06 subtract national means of area deviations and are superseded by the within-area comparison of script 10, which the paper uses.
 
