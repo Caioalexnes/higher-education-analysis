@@ -4,7 +4,7 @@ Cost: current expenditure executed (economic category 3) by each university's bu
 Portal da Transparencia (Orcamento da Despesa 2024), excluding functions 09 (social security:
 retirement and pensions) and 28 (special charges). University hospitals have their own budget
 units and are excluded, as is capital spending.
-Denominator: in-person undergraduate enrolments (2024 Higher Education Census).
+Denominator: in-person undergraduate enrollments (2024 Higher Education Census).
 Value added: 2023 raw IDD of each course minus the area mean, weighted by graduates with an Enem score.
 
 Outputs: 03_custo_federais.csv, 03_validacao_tcu.csv, 03_tercis.csv, 03_correlacao.csv

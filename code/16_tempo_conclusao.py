@@ -1,7 +1,7 @@
 """Time from entry to the Enade exam, federal and private for-profit graduates, Enade 2019 and 2023.
 
 The Enade microdata give, for each enrolled graduating student, the year of entry in the
-undergraduate programme (ANO_IN_GRAD). Time to graduation is approximated by the Enade year minus
+undergraduate program (ANO_IN_GRAD). Time to graduation is approximated by the Enade year minus
 the year of entry. Courses are classified by the administrative category and assessment area of the
 Conceito Enade spreadsheet, as in the other scripts. Federal graduates are compared with private
 for-profit graduates of the same area: the for-profit figures are reweighted to the federal mix of
@@ -9,8 +9,8 @@ areas (area weights equal to the share of federal students in each area, as in e
 paper). Variants: all courses or in-person courses only; all records or only records with at least
 two years between entry and the exam (shorter spans are mostly transfers or recording errors); mean
 or median.
-Limitations: only students who reached the end of the programme are observed (dropouts are not);
-ANO_IN_GRAD is the year of entry in the current programme, so students who transferred may appear
+Limitations: only students who reached the end of the program are observed (dropouts are not);
+ANO_IN_GRAD is the year of entry in the current program, so students who transferred may appear
 with a shorter time; the 2023 cohort was affected by the suspension of classes in 2020-2021.
 Outputs: 16_tempo_conclusao.csv
 """

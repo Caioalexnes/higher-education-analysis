@@ -3,12 +3,12 @@ graduate-program intensity (CAPES, Coleta Sucupira 2024).
 
 Variables by university (e-MEC code = INEP CO_IES):
   pos_alunos      master's and doctoral students enrolled or graduated in 2024
-  pos_por_grad    pos_alunos / in-person undergraduate enrolments
-  conceito_medio  mean CAPES grade of the programmes, weighted by students
+  pos_por_grad    pos_alunos / in-person undergraduate enrollments
+  conceito_medio  mean CAPES grade of the programs, weighted by students
 Models (OLS, 66 universities):
   (1) IDD ~ cost
   (2) IDD ~ cost + pos_por_grad + conceito_medio
-  (3) cost ~ pos_por_grad + conceito_medio   (how much of the cost graduate programmes explain)
+  (3) cost ~ pos_por_grad + conceito_medio   (how much of the cost graduate programs explain)
   (4) IDD ~ cost per simple student-equivalent (undergraduate + 2 x graduate)
 Outputs: 05_pos_por_universidade.csv, 05_modelos.csv
 Student names in the CAPES file are not read for anything other than counting and do not appear in the outputs.

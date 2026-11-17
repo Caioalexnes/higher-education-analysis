@@ -1,11 +1,11 @@
 """Annual exits from in-person undergraduate courses: federal universities and private for-profit institutions.
 
 Source: INEP, Sinopse Estatistica da Educacao Superior, table 7.2 (in-person undergraduate courses),
-row "Total Brasil", by academic organisation and administrative category. For each year:
-  share of enrolment links that were severed during the year (matriculas desvinculadas) and that were
+row "Total Brasil", by academic organization and administrative category. For each year:
+  share of enrollment links that were severed during the year (matriculas desvinculadas) and that were
   suspended (matriculas trancadas), over all links (matriculas + trancadas + desvinculadas +
-  transferidos + falecidos); and enrolments per graduate (matriculas / concluintes).
-Federal: universities only. For-profit: universities, university centres and colleges.
+  transferidos + falecidos); and enrollments per graduate (matriculas / concluintes).
+Federal: universities only. For-profit: universities, university centers and colleges.
 The Sinopse workbooks must be extracted in a folder named sinopse_educacao_superior_<ano> under DADOS
 or DADOS_EXTRA. Output: 18_evasao_sinopse.csv
 """

@@ -5,7 +5,7 @@ Merges, for each Enade cycle (2019 and 2023), the Conceito Enade and IDD spreads
 the share of graduates from private high schools (Enade questionnaire, from script 02)
 and, for 2023, course characteristics of the entering cohort from the 2018 Higher
 Education Census (applicants per seat, entrants' school origin, age, shift, ProUni/Fies,
-quotas, enrolment size).
+quotas, enrollment size).
 The 2019 IDD was computed with the method INEP used until 2021 (see script 13).
 Outputs: results/08_base_cursos_2019.csv, results/08_base_cursos_2023.csv
 """

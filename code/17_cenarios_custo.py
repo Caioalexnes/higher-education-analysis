@@ -1,4 +1,4 @@
-"""Federal cost per student against private tuition under the most and least favourable choices, 2024.
+"""Federal cost per student against private tuition under the most and least favorable choices, 2024.
 
 Federal side (all federal universities of script 03, total / total):
   current cost of the universities' own budget units, without pensions, special charges and capital
@@ -12,8 +12,8 @@ Private side: median tuition actually paid in in-person private courses (Hoper E
   twelve payments a year, in reais of 2024 (IPCA, mean of 2024 over mean of January-March 2026),
   with or without the taxes on revenue (ISS 2% to 5%; PIS 0.65% and Cofins 3%, cumulative regime for
   higher education, Lei 10.833/2003 art. 10, XIV).
-Per graduate: enrolments per graduate, federal over private for-profit, in-person bachelor's and
-  licentiate courses of the same CINE label, weighted by federal enrolments (Census 2024 and 2018).
+Per graduate: enrollments per graduate, federal over private for-profit, in-person bachelor's and
+  licentiate courses of the same CINE label, weighted by federal enrollments (Census 2024 and 2018).
 Outputs: 17_cenarios_custo.csv, 17_matriculas_por_concluinte.csv
 """
 import csv, io, zipfile, collections

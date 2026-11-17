@@ -90,7 +90,7 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `15_idd_microdados.py` | Recomputes the IDD of each edition from INEP's student-level IDD microdata with both the old and the current definitions, checks them against the published values (they match exactly) and computes the federal gaps | Table 10, Figure 3 |
 | `16_tempo_conclusao.py` | Years between entry and the Enade exam, federal and for-profit graduates of the same area, Enade 2019 and 2023 | No (companion essay) |
 | `17_cenarios_custo.py` | Federal current cost per student (with and without university hospitals and the research discount) against median in-person private tuition (with and without taxes on revenue), per year and per graduate, 2024 | Section 7 (cost ratios) |
-| `18_evasao_sinopse.py` | Annual share of severed and suspended enrolments and enrolments per graduate, in-person undergraduate courses of federal universities and private for-profit institutions, 2015-2018 and 2024 (INEP Sinopses Estatísticas, table 7.2) | No (companion essay) |
+| `18_evasao_sinopse.py` | Annual share of severed and suspended enrollments and enrollments per graduate, in-person undergraduate courses of federal universities and private for-profit institutions, 2015-2018 and 2024 (INEP Sinopses Estatísticas, table 7.2) | No (companion essay) |
 | `19_enem_entrada.py` | Position of 2022 and 2023 graduates (in-person courses) in the national distribution of Enem 2018 scores, federal and for-profit graduates of the same areas | Figure 1 and Section 6.1 |
 | `20_custo_hu.py` | Cost and value added among federal universities adding each university's own hospital budget units at 35% and 100% | Section 6.5 (robustness) |
 
