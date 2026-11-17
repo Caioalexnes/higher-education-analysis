@@ -1,5 +1,5 @@
 % Selection or Teaching? Value Added and Cost in Brazilian Federal Universities
-% Working paper, draft v0.5 (November 2026)
+% Working paper, draft v0.6 (November 2026)
 \documentclass[11pt,a4paper]{article}
 \usepackage{fontspec}
 \setmainfont{TeX Gyre Pagella}
@@ -21,7 +21,7 @@
 
 \title{\textbf{Selection or Teaching?}\\[0.2em]\large Value Added and Cost in Brazilian Federal Universities}
 \author{Caio A. F. Cunha\thanks{Independent researcher. ORCID: \href{https://orcid.org/0009-0008-2153-901X}{0009-0008-2153-901X}. Data, code and replication instructions: \url{https://github.com/Caioalexnes/higher-education-analysis}.}}
-\date{Working paper, draft v0.5, November 2026}
+\date{Working paper, draft v0.6, November 2026}
 
 \begin{document}
 \maketitle
@@ -71,8 +71,6 @@ Comparisons between public and private institutions based on the Enade are commo
 
 The paper also relates to work on affirmative action and centralized admission in Brazil, which shape who enters federal universities. \citet{francis2012} study the short-term effects of racial quotas at the University of Bras\'{i}lia, and \citet{mello2022} studies how Sisu and the quota law changed access of low-income students to federal institutions. In the Enade, \citet{waltenberg2013} find that, in 2008, graduates admitted through affirmative action scored below their peers in public institutions in every type of course, with no strong gaps in private institutions except in high-prestige courses; with the Enade from 2009 to 2012, \citet{valente2017} find that affirmative-action students in public universities perform at levels similar to those of other students; and, with the Enade from 2017 to 2019, \citet{bielschowsky2023} find that quota students in federal universities score close to non-quota students of the same course, and that both score well above graduates of private institutions. The broader literature on whether students admitted under preferences are hurt by attending more selective institutions is reviewed by \citet{arcidiacono2016}; \citet{bleemer2022} finds that the end of affirmative action at the University of California reduced degree attainment and wages of under-represented students.
 
-\todo{Still to add: cost studies beyond \citet{worldbank2017} and \citet{bielschowsky2022}, including the cost indicators of the federal audit court.}
-
 %======================================================================
 \section{Data}\label{sec:data}
 %======================================================================
@@ -81,7 +79,7 @@ The unit of analysis is the course, defined as a degree programme of an institut
 
 For 2023, each course is linked to its record in the 2018 Higher Education Census \citep{inepcenso}, the typical entry year of graduates of four- and five-year programmes. From the Census I take the number of applicants and new seats, which measure competition for admission, and the composition of the entering cohort: the shares of entrants from private secondary schools, aged 25 or older, in evening classes, with Fies loans or ProUni scholarships, and admitted through reserved seats. The competition and composition measures are therefore available for 2023 only; for 2022, the analysis is limited to the within-area comparison.
 
-For the analysis of costs, the current spending of each federal university in 2024 is taken from the federal budget execution data \citep{cgu2024}, excluding pensions, special charges, capital spending and university hospitals, and divided by in-person undergraduate enrolments from the 2024 Census. Graduate-program intensity is measured with 2024 open data from CAPES \citep{capes2024}. For seven universities that publish the cost indicators required by the federal audit court, my measure is between 23\% below and 9\% above theirs.
+For the analysis of costs, the current spending of each federal university in 2024 is taken from the federal budget execution data \citep{cgu2024}, excluding pensions, special charges, capital spending and university hospitals, and divided by in-person undergraduate enrolments from the 2024 Census. Graduate-program intensity is measured with 2024 open data from CAPES \citep{capes2024}. Since a 2002 decision of the federal audit court (TCU), federal universities must report in their annual management reports a current cost per equivalent student, with and without university hospitals \citep{tcu2002}. Its numerator also excludes pensions and judicial sentences, but its denominator weights undergraduates by course duration, a retention factor and a group weight, and counts each graduate student twice \citep{tcu2006}, so it is not comparable across universities with different course mixes. For seven universities that publish the cost without hospitals, my measure of total current spending is between 23\% below and 9\% above theirs.
 
 The analysis sample includes courses with at least one participating graduate and at least one graduate with a recovered Enem score, which leaves 8,830 courses in 2023 and 7,569 in 2022. Table~\ref{tab:descriptives} describes the 2023 sample by administrative category. Federal courses have 66,000 participating graduates, against 154,000 in for-profit private courses. Coverage of the Enem link is higher in federal courses (95\%) than in for-profit courses (66\%), and 18\% of for-profit graduates are in distance-learning courses. In 2022, the coverage was 92\% and 54\%.
 

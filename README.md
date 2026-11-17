@@ -1,6 +1,6 @@
 # Selection or Teaching? Value Added and Cost in Brazilian Federal Universities
 
-Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.5, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
+Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.6, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
 
 The paper asks how much of the advantage of Brazilian federal universities in the national graduation exam (Enade) is selection and how much is teaching. It compares federal and private courses of the same assessment area using the raw Enade score and INEP's value-added indicator (IDD). It also shows that the method INEP used to compute the IDD until 2021 pulled course effects toward zero, more so in larger courses, which is why earlier editions show almost no value-added gap between federal and private courses.
 
