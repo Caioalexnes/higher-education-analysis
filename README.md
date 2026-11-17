@@ -1,6 +1,6 @@
 # Selection or Teaching? Value Added and Cost in Brazilian Federal Universities
 
-Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.6, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
+Replication package for the working paper *Selection or Teaching? Value Added and Cost in Brazilian Federal Universities* by Caio A. F. Cunha (draft v0.7, November 2026). The paper is in [`paper/paper.pdf`](paper/paper.pdf).
 
 The paper asks how much of the advantage of Brazilian federal universities in the national graduation exam (Enade) is selection and how much is teaching. It compares federal and private courses of the same assessment area using the raw Enade score and INEP's value-added indicator (IDD). It also shows that the method INEP used to compute the IDD until 2021 pulled course effects toward zero, more so in larger courses, which is why earlier editions show almost no value-added gap between federal and private courses.
 
@@ -9,7 +9,7 @@ All data are public. This repository contains the code, the intermediate results
 ## Repository structure
 
 ```
-code/        Python scripts 01-19 and config.py
+code/        Python scripts 01-20 and config.py
 results/     CSV outputs of the scripts (the inputs of the paper's tables and figures)
 paper/       paper.tex, refs.bib, build_tables.py, tables/, figures/, paper.pdf
 ```
@@ -56,7 +56,7 @@ cd code
 python 01_censo_origem.py
 python 02_enade_idd.py
 ...
-python 19_enem_entrada.py
+python 20_custo_hu.py
 ```
 
 Script 12 accepts editions as arguments (for example `python 12_serie_historica.py 2022 2023`) and merges them into the existing output; script 13 does the same, and the bootstrap intervals of script 13 are computed when the environment variable `B` is set (the paper uses `B=200`). Script 14 is superseded by script 15 and need not be run. Script 15 reads the IDD microdata of 2016 to 2023 (extracted archives or zip files anywhere under `DADOS`) and also accepts `B` for bootstrap intervals. Script 18 reads the Sinopses Estatísticas extracted in folders named `sinopse_educacao_superior_<year>`. Script 19 reads the IDD microdata of 2022 and 2023 and the Enem 2018 microdata (zip or extracted CSV).
@@ -92,6 +92,7 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `17_cenarios_custo.py` | Federal current cost per student (with and without university hospitals and the research discount) against median in-person private tuition (with and without taxes on revenue), per year and per graduate, 2024 | Section 7 (cost ratios) |
 | `18_evasao_sinopse.py` | Annual share of severed and suspended enrolments and enrolments per graduate, in-person undergraduate courses of federal universities and private for-profit institutions, 2015-2018 and 2024 (INEP Sinopses Estatísticas, table 7.2) | No (companion essay) |
 | `19_enem_entrada.py` | Position of 2022 and 2023 graduates (in-person courses) in the national distribution of Enem 2018 scores, federal and for-profit graduates of the same areas | Figure 1 and Section 6.1 |
+| `20_custo_hu.py` | Cost and value added among federal universities adding each university's own hospital budget units at 35% and 100% | Section 6.5 (robustness) |
 
 The comparisons by category in scripts 02 and 06 subtract national means of area deviations and are superseded by the within-area comparison of script 10, which the paper uses.
 
