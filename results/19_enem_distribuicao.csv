@@ -1,0 +1,81 @@
+ano;grupo;percentil_de;percentil_ate;pct_graduados
+2022;federal;0;5;0.78
+2022;federal;5;10;0.65
+2022;federal;10;15;0.74
+2022;federal;15;20;0.73
+2022;federal;20;25;1.02
+2022;federal;25;30;1.31
+2022;federal;30;35;1.38
+2022;federal;35;40;1.83
+2022;federal;40;45;1.98
+2022;federal;45;50;2.48
+2022;federal;50;55;2.95
+2022;federal;55;60;3.2
+2022;federal;60;65;4.06
+2022;federal;65;70;4.74
+2022;federal;70;75;5.92
+2022;federal;75;80;7.84
+2022;federal;80;85;9.39
+2022;federal;85;90;12.41
+2022;federal;90;95;16.29
+2022;federal;95;100;20.29
+2022;private for-profit;0;5;3.59
+2022;private for-profit;5;10;3.15
+2022;private for-profit;10;15;3.39
+2022;private for-profit;15;20;3.75
+2022;private for-profit;20;25;4.03
+2022;private for-profit;25;30;4.38
+2022;private for-profit;30;35;4.19
+2022;private for-profit;35;40;5.2
+2022;private for-profit;40;45;4.59
+2022;private for-profit;45;50;5.61
+2022;private for-profit;50;55;5.8
+2022;private for-profit;55;60;5.48
+2022;private for-profit;60;65;6.04
+2022;private for-profit;65;70;6.87
+2022;private for-profit;70;75;6.42
+2022;private for-profit;75;80;7.51
+2022;private for-profit;80;85;6.86
+2022;private for-profit;85;90;6.5
+2022;private for-profit;90;95;4.56
+2022;private for-profit;95;100;2.08
+2023;federal;0;5;0.45
+2023;federal;5;10;0.37
+2023;federal;10;15;0.45
+2023;federal;15;20;0.48
+2023;federal;20;25;0.65
+2023;federal;25;30;0.91
+2023;federal;30;35;0.86
+2023;federal;35;40;1.21
+2023;federal;40;45;1.22
+2023;federal;45;50;1.53
+2023;federal;50;55;1.85
+2023;federal;55;60;2.17
+2023;federal;60;65;2.89
+2023;federal;65;70;3.46
+2023;federal;70;75;4.49
+2023;federal;75;80;6.4
+2023;federal;80;85;8.46
+2023;federal;85;90;12.94
+2023;federal;90;95;18.25
+2023;federal;95;100;30.96
+2023;private for-profit;0;5;3.26
+2023;private for-profit;5;10;2.86
+2023;private for-profit;10;15;3.16
+2023;private for-profit;15;20;3.6
+2023;private for-profit;20;25;4.02
+2023;private for-profit;25;30;3.69
+2023;private for-profit;30;35;3.46
+2023;private for-profit;35;40;4.1
+2023;private for-profit;40;45;4.67
+2023;private for-profit;45;50;5.41
+2023;private for-profit;50;55;4.57
+2023;private for-profit;55;60;4.66
+2023;private for-profit;60;65;5.91
+2023;private for-profit;65;70;5.7
+2023;private for-profit;70;75;6.23
+2023;private for-profit;75;80;7.24
+2023;private for-profit;80;85;7.6
+2023;private for-profit;85;90;8.16
+2023;private for-profit;90;95;7.07
+2023;private for-profit;95;100;4.64
