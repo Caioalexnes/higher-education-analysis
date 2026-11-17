@@ -7,7 +7,8 @@ distribution of the same mean among Enem 2018 participants who sat the four test
 comparable across years but not identical). In-person courses only. Federal graduates are compared
 with private for-profit graduates of the same assessment areas: for-profit graduates are reweighted
 to the federal mix of areas.
-Outputs: 19_enem_entrada.csv (summary), 19_enem_distribuicao.csv (shares by national percentile band)
+Outputs: 19_enem_entrada.csv (summary), 19_enem_distribuicao.csv (shares by national percentile band),
+         19_enem_escala.csv (shares by 10-point band of the score, national and graduates; Figure 1 of the paper)
 """
 import os, re, glob, io, zipfile
 import numpy as np, pandas as pd
@@ -25,7 +26,7 @@ def achar(padrao):
     return None
 
 
-def enem2018_cdf():
+def enem2018_hist():
     cols = ["IN_TREINEIRO", "TP_PRESENCA_CN", "TP_PRESENCA_CH", "TP_PRESENCA_LC", "TP_PRESENCA_MT",
             "NU_NOTA_CN", "NU_NOTA_CH", "NU_NOTA_LC", "NU_NOTA_MT"]
     f = achar(r"MICRODADOS_ENEM_2018\.csv$")
@@ -40,7 +41,7 @@ def enem2018_cdf():
         m = ch.loc[ok, cols[5:]].mean(axis=1).dropna()
         m = m[m > 0]
         hist += np.bincount(np.clip(np.round(m).astype(int), 0, 1000), minlength=1001)
-    return np.cumsum(hist) / hist.sum()
+    return hist
 
 
 def graduados(ano):
@@ -57,7 +58,10 @@ def graduados(ano):
 
 
 def main():
-    cdf = enem2018_cdf()
+    hist = enem2018_hist()
+    cdf = np.cumsum(hist) / hist.sum()
+    faixas = np.arange(300, 901, 10)
+    escala = {'national': np.array([hist[b:b + 10].sum() for b in faixas[:-1]], float)}
     corte = {p: int(np.searchsorted(cdf, p / 100)) for p in (50, 75, 90)}
     resumo, dist = [], []
     for ano in (2022, 2023):
@@ -75,6 +79,7 @@ def main():
             resumo.append([ano, nome, len(x), round(float(np.average(x.enem, weights=w)), 1), round(med, 1),
                            round(100 * float(w[x.enem >= corte[90]].sum()), 1), round(100 * float(w[x.enem >= corte[75]].sum()), 1),
                            round(100 * float(w[x.enem < corte[50]].sum()), 1)])
+            escala[f'{nome} {ano}'] = np.histogram(np.clip(x.enem, 300, 899.9), bins=faixas, weights=x.w)[0]
             faixa = np.minimum((x.pct // 5).astype(int), 19)
             s = w.groupby(faixa).sum().reindex(range(20), fill_value=0)
             dist += [[ano, nome, 5 * b, 5 * b + 5, round(100 * float(v), 2)] for b, v in s.items()]
@@ -82,6 +87,8 @@ def main():
     salvar_csv("19_enem_entrada.csv", resumo, ["ano", "grupo", "graduados", "enem_medio", "percentil_mediano",
                                               "pct_10_superiores", "pct_25_superiores", "pct_abaixo_mediana"])
     salvar_csv("19_enem_distribuicao.csv", dist, ["ano", "grupo", "percentil_de", "percentil_ate", "pct_graduados"])
+    linhas = [[int(b), int(b) + 10] + [round(100 * float(v[i] / v.sum()), 3) for v in escala.values()] for i, b in enumerate(faixas[:-1])]
+    salvar_csv("19_enem_escala.csv", linhas, ["nota_de", "nota_ate"] + list(escala.keys()))
     print("national cut-offs (Enem 2018 mean of four objective tests):", corte)
     print("19 ok")
 

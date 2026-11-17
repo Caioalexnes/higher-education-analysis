@@ -223,24 +223,23 @@ ax.axvline(2021.5, color='#52514E', lw=0.9, ls=':')
 ax.set_xticks([2016, 2017, 2018, 2019, 2021, 2022, 2023]); ax.tick_params(labelsize=8)
 ax.set_ylabel('Federal minus for-profit, IDD points', fontsize=8); ax.legend(fontsize=6.5, frameon=False, loc='upper left')
 plt.tight_layout(); plt.savefig('figures/fig_series.pdf'); plt.savefig('figures/fig_series.png', dpi=200)
-# Figure: entry scores of the graduates in the national Enem distribution (script 19)
-dd = pd.read_csv(f'{R}19_enem_distribuicao.csv', sep=';')
-fig, axs = plt.subplots(1, 2, figsize=(6.4, 2.9), sharey=True)
-cores_e = {'federal': ('#2A78D6', 'Federal'), 'private for-profit': ('#E07B39', 'For-profit (same areas)')}
+# Figure 1: entry scores of the graduates against the national Enem distribution (script 19)
+de = pd.read_csv(f'{R}19_enem_escala.csv', sep=';')
+cortes = {'national median': 522, 'national top 10%': 628}  # Enem 2018, printed by script 19
+bordas = list(de.nota_de) + [int(de.nota_ate.iloc[-1])]
+fig, axs = plt.subplots(1, 2, figsize=(6.4, 3.3), sharey=True)
 for ax, ano in zip(axs, (2022, 2023)):
-    for g_, (cor, lab_) in cores_e.items():
-        x = dd[(dd.ano == ano) & (dd.grupo == g_)].sort_values('percentil_de')
-        ax.stairs(x.pct_graduados.values, list(x.percentil_de) + [100], color=cor, lw=2, label=lab_)
-        v = x.pct_graduados.values
-        if g_ == 'federal':
-            ax.text(93, v[-1] + 1.0, 'Federal', fontsize=7, color='#2b2b2b', ha='right')
-        else:
-            ax.text(32.5, max(v[6], 5) + 1.4, 'For-profit', fontsize=7, color='#2b2b2b', ha='center')
-    ax.axhline(5, color='#8a8a85', lw=0.9, ls='--', label='All Enem participants')
-    ax.set_title(f'Graduates of {ano}', fontsize=9); ax.set_xlim(0, 100); ax.set_xticks(range(0, 101, 20))
+    ax.fill_between(de.nota_de, de.national, step='post', color='#d9d9d6', lw=0, label='All Enem 2018 participants')
+    ax.stairs(de[f'federal {ano}'].values, bordas, color='#2A78D6', lw=2, label='Federal graduates')
+    ax.stairs(de[f'private for-profit {ano}'].values, bordas, color='#E07B39', lw=2, label='For-profit graduates of the same areas')
+    for (lab_, x), ha, dx in zip(cortes.items(), ('right', 'left'), (-4, 4)):
+        ax.axvline(x, color='#52514E', lw=0.8, ls=':', ymax=0.9)
+        ax.text(x + dx, 7.0, lab_, fontsize=6.3, color='#3b3b38', ha=ha)
+    ax.set_title(f'Graduates of {ano}', fontsize=9); ax.set_xlim(320, 860); ax.set_ylim(0, 7.6)
     ax.tick_params(labelsize=7.5); ax.grid(axis='y', color='0.92', lw=0.6); ax.set_axisbelow(True)
     for sp_ in ('top', 'right'): ax.spines[sp_].set_visible(False)
-    ax.set_xlabel('Percentile of the national Enem 2018 distribution', fontsize=7.5)
-axs[0].set_ylabel('Share of graduates (%)', fontsize=7.5)
-axs[0].legend(fontsize=6.8, frameon=False, loc='upper left')
-plt.tight_layout(); plt.savefig('figures/fig_enem.pdf'); plt.savefig('figures/fig_enem.png', dpi=200)
+    ax.set_xlabel('Mean Enem score, four objective tests', fontsize=7.5)
+axs[0].set_ylabel('Share in each 10-point band (%)', fontsize=7.5)
+h_, l_ = axs[0].get_legend_handles_labels()
+fig.legend(h_, l_, loc='lower center', ncol=3, fontsize=6.8, frameon=False)
+plt.tight_layout(rect=(0, 0.07, 1, 1)); plt.savefig('figures/fig_enem.pdf'); plt.savefig('figures/fig_enem.png', dpi=200)
