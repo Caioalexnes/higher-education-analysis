@@ -12,6 +12,7 @@
 \usepackage{booktabs,array,threeparttable}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{float}
 \captionsetup{font=small,labelfont=bf}
 \usepackage[round]{natbib}
 \usepackage{xcolor}
@@ -197,7 +198,7 @@ Table~\ref{tab:robustness} shows that the federal coefficients for 2023 are stab
 
 Table~\ref{tab:series} extends the within-area comparison to every Enade edition with course-level IDD, from 2014 to 2023, using the IDD as published. Each group of areas is assessed every three years, with a four-year gap during the pandemic, so the series contains three editions for each group. For 2014 and 2015 the IDD is taken from the CPC spreadsheets, and the 2015 spreadsheet does not separate for-profit from non-profit private institutions, so the table also reports gaps relative to all private courses. In every edition up to 2021 and in every group of areas, the federal value-added gap lies between $-0.35$ and $0.41$ points, which would put the share of the raw gap present at entry between 95\% and 104\%. In 2022 and 2023, in two different groups of areas, the gap is between 2.0 and 2.7 points. The break coincides with the change in the definition of the IDD described in Section~\ref{sec:background}.
 
-\begin{table}[!htbp]
+\begin{table}[H]
 \centering\small
 \caption{Federal minus private courses of the same area, every Enade edition with course-level IDD}\label{tab:series}
 \resizebox{\linewidth}{!}{\input{tables/tab_series}}
@@ -205,13 +206,6 @@ Table~\ref{tab:series} extends the within-area comparison to every Enade edition
 \textit{Notes:} Gaps computed with equation~\eqref{eq:matched}; 95\% bootstrap intervals for the value-added gap in brackets (200 replications). The IDD of 2014 to 2021 was computed with the method in place until 2021; that of 2022 and 2023 with the current method. Area groups follow the three-year Enade cycle: group I (2016, 2019, 2023) covers mainly health and agrarian sciences, group II (2014, 2017, 2021) mainly sciences, humanities and teacher training, and group III (2015, 2018, 2022) mainly applied social sciences such as management and law. Engineering and architecture were assessed in group II until 2017 and in group I from 2019. 2014 and 2015: IDD from the CPC spreadsheets; the 2015 spreadsheet does not distinguish for-profit and non-profit private institutions. There was no Enade in 2020. \textit{Sources:} INEP, Conceito Enade, IDD and CPC spreadsheets, 2014--2023.
 \end{minipage}
 \end{table}
-
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.8\linewidth]{figures/fig_series.pdf}
-\caption{Value-added gap between federal and for-profit private courses of the same area, by Enade edition and group of areas. Solid lines: IDD recomputed with the current method from the student-level microdata, with 95\% bootstrap intervals. Dashed lines: IDD as published. The dotted line marks the change in INEP's method; the shaded band marks the interruption of Enade in 2020.}\label{fig:series}
-\end{figure}
-
 In INEP's model, the Enade score of graduate $i$ in course $c$ is $C_{ic}=\gamma_0+u_c+X_{ic}'\beta+e_{ic}$, where $X_{ic}$ are the four Enem scores, $u_c$ is the course's random intercept, with variance $\tau^2$, and $e_{ic}$ has variance $\sigma^2$. Let $\bar r_c$ be the mean of $C_{ic}-\hat\gamma_0-X_{ic}'\hat\beta$ over the $n_c$ graduates of the course with an Enem score. The estimated course effect is the shrunken mean
 \begin{equation}\label{eq:blup}
 \hat u_c=\lambda_c\,\bar r_c,\qquad \lambda_c=\frac{\tau^2}{\tau^2+\sigma^2/n_c}.
@@ -224,7 +218,7 @@ As the number of graduates grows, $\lambda_c$ approaches one: the old IDD of a l
 
 Table~\ref{tab:method} shows both patterns in the data. With the old method, the dispersion of the raw IDD around the area mean falls from about 5 points in courses with up to five graduates with an Enem score to about 0.4 points in courses with more than 80 in 2019 and 2021, and to 1.1 points or less in every edition from 2014 to 2018. With the new method, it rises with the number of graduates and stabilizes at about 3.2 points. The federal value-added gap follows the same pattern. With the old method, it is 1.6 to 2.1 points among federal courses with fewer than 15 graduates with an Enem score, and about 0.1 points among those with 40 or more, which account for 70\% of federal graduates with an Enem score. With the new method, the gap is largest among the larger courses: 3.6 points in 2022 and 3.3 points in 2023.
 
-\begin{table}[!htbp]
+\begin{table}[H]
 \centering\small
 \caption{The IDD method and course size: dispersion of the IDD and federal gaps}\label{tab:method}
 \input{tables/tab_method}
@@ -237,7 +231,13 @@ The old method therefore pulls differences between groups of courses toward zero
 
 These comparisons show that the old method compresses the federal gap; they do not show what the gap would have been under the current method. To answer that, I recomputed the IDD from INEP's student-level microdata \citep{inepiddmicro}. For each area and edition, I estimated the model by restricted maximum likelihood, excluded the students with an absolute standardized residual above 3, estimated it again, and computed the IDD with both definitions. The computation reproduces the published values: the correlation between the published raw IDD and the recomputed one is 1.00 in every edition from 2016 to 2023, with the old definition up to 2021 and the current one from 2022, and the median absolute difference is below 0.01 points. The old definition is reproduced only when the mean residual is taken over all graduates, including those excluded as outliers. The editions of 2014 and 2015 are not recomputed because their published spreadsheets have no course codes to link with.
 
-\begin{table}[!htbp]
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\linewidth]{figures/fig_series.pdf}
+\caption{Value-added gap between federal and for-profit private courses of the same area, by Enade edition and group of areas. Solid lines: IDD recomputed with the current method from the student-level microdata, with 95\% bootstrap intervals. Dashed lines: IDD as published. The dotted line marks the change in INEP's method; the shaded band marks the interruption of Enade in 2020.}\label{fig:series}
+\end{figure}
+
+\begin{table}[H]
 \centering\small
 \caption{Federal minus private courses of the same area, with the IDD recomputed from student-level data}\label{tab:recomputed}
 \resizebox{\linewidth}{!}{\input{tables/tab_recomputed}}
@@ -275,7 +275,7 @@ The main result holds across specifications, samples and the two editions comput
 
 Several limitations qualify these conclusions. The IDD only controls for what the Enem measures; unobserved differences in motivation, effort or study conditions between federal and private students, such as the time available for study during the course, would bias the value-added gap, most likely in favour of the more selective federal courses, which would strengthen the conclusion that the gap is mostly selection. The model behind the IDD also assumes that course effects are unrelated to students' Enem scores; if better courses attract students with higher scores, the Enem coefficients absorb part of the course effect and the IDD understates the value added of selective courses. The current IDD shrinks the effects of small courses, as shown in Section~\ref{sec:method_change}. The recomputation of the earlier editions shows that the federal advantage grew between 2016 and 2023, but the reasons for this growth are not examined here. The IDD is computed only for graduates with a recovered Enem score, whose share differs across categories and editions. Enade measures learning in a single exam that has no consequences for students, and differences in effort across institutions cannot be ruled out. The analysis is at the course level because public microdata do not link individual scores to individual characteristics; access to identified data through INEP's protected-data service would allow student-level estimates with richer controls. Finally, the analysis compares the federal sector with the for-profit private sector, which serves a different population and charges tuition; a comparison of costs between the two sectors depends on how research, pensions and the tuition paid in the private sector are treated \citep{bielschowsky2022}.
 
-The comparison with private institutions also bears on a policy that already exists. Through ProUni, private institutions receive tax exemptions in exchange for tuition-free places for low-income students, who are admitted on their Enem scores. \citet{almeida2022} put the program's tax expenditure at about R\$~13.5 billion between 2005 and 2017, at 2020 prices, for 2.2 million scholarship-years, or about R\$~6,000 per scholarship-year. In the Enade editions from 2012 to 2014, ProUni scholarship holders scored above their classmates in the same course and institution \citep{wainer2018}. These results do not show that ProUni students learn as much as they would in a federal university: the comparison is with classmates, not with federal students, scholarship holders are selected on their Enem scores, and the tax expenditure is not the full cost of their education. Together with the small value-added gap documented here, they suggest that the cost of a place in a federal university should be compared with that of alternatives such as ProUni, and not only with the tuition of a private course.
+The comparison with private institutions also bears on a policy that already exists. Through ProUni, private institutions receive tax exemptions in exchange for tuition-free places for low-income students, who are admitted on their Enem scores. \citet{almeida2022} put the program's tax expenditure at about R\$~13.5 billion between 2005 and 2017, at 2020 prices, for 2.2 million scholarship-years, or about R\$~6,000 per scholarship-year. In the Enade editions from 2012 to 2014, ProUni scholarship holders scored above their classmates in the same course and institution \citep{wainer2018}. Because ProUni scholarship holders are pre-selected on their Enem results \citep[art.~3]{lei11096}, this is what the selection explanation predicts: within the same course, the students selected on the admission exam score higher at graduation. These results do not show that ProUni students learn as much as they would in a federal university: the comparison is with classmates, not with federal students, scholarship holders are selected on their Enem scores, and the tax expenditure is not the full cost of their education. Together with the small value-added gap documented here, they suggest that the cost of a place in a federal university should be compared with that of alternatives such as ProUni, and not only with the tuition of a private course.
 
 %======================================================================
 \section{Conclusion}\label{sec:conclusion}
