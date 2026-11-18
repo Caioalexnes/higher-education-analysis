@@ -6,8 +6,9 @@ for-profit courses are distributed differently across assessment areas, that com
 mixes area composition into the gap. Here, for each area, the federal group's mean is
 compared with the for-profit mean of the same area, and the area gaps are averaged with
 weights equal to the federal group's graduates (participants for the raw score;
-participants with an Enem score for the IDD). 95% intervals: bootstrap of courses
-within area and category (500 replications).
+participants with an Enem score for the IDD). 95% intervals: bootstrap that resamples
+institutions (all courses of an institution together), separately for the federal group and
+the comparison group (500 replications; scripts 12, 13 and 15 use 200).
 Outputs: results/10_diferencas_pareadas.csv
 """
 import numpy as np
@@ -39,13 +40,16 @@ def pareada(g, b):
 
 
 def boot(g, b, B=500, seed=1):
+    """Percentile intervals from resampling institutions (column 'ies'), separately in each group."""
+    if g['ies'].isna().any() or b['ies'].isna().any():
+        raise ValueError('courses without institution code')
     rng = np.random.default_rng(seed)
-    gi = [x.index.values for _, x in g.groupby('area')]
-    bi = [x.index.values for _, x in b.groupby('area')]
+    gi = [x.index.values for _, x in g.groupby('ies')]
+    bi = [x.index.values for _, x in b.groupby('ies')]
     out = []
     for _ in range(B):
-        gg = g.loc[np.concatenate([rng.choice(i, len(i)) for i in gi])]
-        bb = b.loc[np.concatenate([rng.choice(i, len(i)) for i in bi])]
+        gg = g.loc[np.concatenate([gi[j] for j in rng.integers(0, len(gi), len(gi))])]
+        bb = b.loc[np.concatenate([bi[j] for j in rng.integers(0, len(bi), len(bi))])]
         out.append(pareada(gg, bb))
     out = np.array(out)
     return np.percentile(out[:, 0], [2.5, 97.5]), np.percentile(out[:, 1], [2.5, 97.5])
@@ -76,5 +80,5 @@ if __name__ == '__main__':
                                idd_em_dp_aluno=di / SD,
                                insc_vaga_mediana=g['inscritos_por_vaga_2018'].median() if 'inscritos_por_vaga_2018' in g else np.nan))
     out = pd.DataFrame(linhas)
-    out.to_csv(f'{RES}/10_diferencas_pareadas.csv', sep=';', index=False, float_format='%.3f')
+    out.to_csv(f'{RES}/10_diferencas_pareadas.csv', sep=';', index=False, float_format='%.4f')
     print(out.round(2).to_string(index=False))

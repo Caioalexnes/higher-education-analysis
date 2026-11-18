@@ -60,4 +60,4 @@ if __name__ == '__main__':
         out = pd.DataFrame(linhas); destino = f'{RES}/{nome}'
         if os.path.exists(destino) and sys.argv[1:]:
             old = pd.read_csv(destino, sep=';'); out = pd.concat([old[~old['ano'].isin(anos)], out])
-        out.sort_values(['ano'] + (['base'] if 'base' in out else []), kind='stable').to_csv(destino, sep=';', index=False, float_format='%.3f')
+        out.sort_values(['ano'] + (['base'] if 'base' in out else []), kind='stable').to_csv(destino, sep=';', index=False, float_format='%.4f')

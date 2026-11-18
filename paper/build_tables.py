@@ -134,7 +134,7 @@ for fx, en in [('1-14', '1 to 14'), ('15-39', '15 to 39'), ('40+', '40 or more')
 s += ['\\midrule', '\\multicolumn{5}{l}{\\textit{C. Share of the raw gap present at entry (\\%)}} \\\\']
 for fx, en in [('1-14', '1 to 14'), ('15-39', '15 to 39'), ('40+', '40 or more'), ('all', 'All courses')]:
     x = G2[G2.faixa == fx]
-    s.append(en + ' & ' + ' & '.join(f"{100*x[x.ano == a].parcela_entrada.iloc[0]:.0f}" for a in ED) + ' \\\\')
+    s.append(en + ' & ' + ' & '.join(f"{100*(1 - x[x.ano == a].dif_idd.iloc[0] / x[x.ano == a].dif_nota.iloc[0]):.0f}" for a in ED) + ' \\\\')
 s += ['\\bottomrule', '\\end{tabular}']
 s = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in s]
 save('tab_method', '\n'.join(s))
@@ -144,11 +144,53 @@ print('method table', G2[G2.ano.isin(ED)][['ano','faixa','dif_nota','dif_idd','p
 cu = pd.read_csv(f'{R}03_custo_federais.csv', sep=';')
 tc = pd.read_csv(f'{R}03_tercis.csv', sep=';')
 md = pd.read_csv(f'{R}05_modelos.csv', sep=';')
-s = ['\\begin{tabular}{lccc}', '\\toprule', 'Cost tercile & Universities & Cost per student (R\\$ thousand) & Value added (IDD) \\\\', '\\midrule']
+mh = pd.read_csv(f'{R}20_modelos_hu.csv', sep=';').set_index('parcela_hu')
+s = ['\\begin{tabular}{lccc}', '\\toprule', '\\multicolumn{4}{l}{\\textit{A. Universities by cost tercile}} \\\\',
+     'Cost tercile & Universities & Cost per student (R\\$ thousand) & Value added (IDD) \\\\', '\\midrule']
 for _, x in tc.iterrows():
     s.append(f"{['Lowest','Middle','Highest'][int(x.tercil)-1]} & {int(x.universidades)} & {x.custo_medio_mil:.1f} & {x.idd_medio:.2f} \\\\")
+s += ['\\midrule', '\\multicolumn{4}{l}{\\textit{B. Slope of value added on cost (IDD points per R\\$~1{,}000), $t$-statistic in parentheses}} \\\\',
+      'University hospitals counted & None & 35\\% & All \\\\', '\\midrule']
+for lab_, b_, t_ in [('Unweighted', 'inclinacao', 't'), ('Unweighted, with graduate-program controls', 'inclinacao_com_controles', 't_com_controles'),
+                     ('Weighted by graduates', 'inclinacao_ponderada', 't_ponderada_robusto'),
+                     ('Weighted, with graduate-program controls', 'inclinacao_ponderada_controles', 't_ponderada_controles_robusto')]:
+    s.append(lab_ + ' & ' + ' & '.join(f"{mh.loc[h, b_]:.3f} ({mh.loc[h, t_]:.1f})" for h in (0.0, 0.35, 1.0)) + ' \\\\')
 s += ['\\bottomrule', '\\end{tabular}']
+s = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in s]
 save('tab_cost_terciles', '\n'.join(s))
+# Appendix tables: in-person courses, common areas and alternative specifications (script 21)
+ip = pd.read_csv(f'{R}21_presencial.csv', sep=';'); ac = pd.read_csv(f'{R}21_areas_comuns.csv', sep=';').set_index('ano')
+gr_ = {2016: 'I', 2019: 'I', 2023: 'I', 2017: 'II', 2021: 'II', 2018: 'III', 2022: 'III'}
+ci = lambda v, a, b: f"{v:.2f} [{a:.2f}, {b:.2f}]"
+s = ['\\begin{tabular}{cccccccc}', '\\toprule',
+     ' & & For-profit & \\multicolumn{3}{c}{Value-added gap (points)} & \\multicolumn{2}{c}{Share present at entry} \\\\',
+     '\\cmidrule(lr){4-6}\\cmidrule(lr){7-8}',
+     'Edition & Area group & graduates in DL & All courses & In-person only & Common areas & All & In-person \\\\', '\\midrule']
+for ano in sorted(ip.ano.unique()):
+    a_ = ip[(ip.ano == ano) & (ip.especificacao == 'all courses')].iloc[0]; p_ = ip[(ip.ano == ano) & (ip.especificacao == 'in-person only')].iloc[0]; c_ = ac.loc[ano]
+    s.append(f"{ano} & {gr_[ano]} & {100*a_.ead_fins_lucrativos:.0f}\\% & {ci(a_.dif_idd, a_.ic_idd_inf, a_.ic_idd_sup)} & {ci(p_.dif_idd, p_.ic_idd_inf, p_.ic_idd_sup)} & "
+             f"{ci(c_.dif_idd, c_.ic_idd_inf, c_.ic_idd_sup)} & {100*a_.parcela_entrada:.0f}\\% & {100*p_.parcela_entrada:.0f}\\% \\\\")
+s += ['\\bottomrule', '\\end{tabular}']
+s = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in s]
+save('tab_inperson', '\n'.join(s))
+md_ = pd.read_csv(f'{R}21_microdados.csv', sep=';')
+sp = pd.read_csv(f'{R}12_serie_historica.csv', sep=';'); sp = sp[(sp.categoria == 'Pública Federal') & (sp.base == 'all private')].set_index('ano')
+def row(lab_, get):
+    cells = []
+    for ano in (2022, 2023):
+        n_, v_ = get(ano); cells.append(f"{n_:.1f} & {v_:.2f} & {100*(1-v_/n_):.0f}\\%")
+    return lab_ + ' & ' + ' & '.join(cells) + ' \\\\'
+M = lambda e: (lambda ano: tuple(md_[(md_.ano == ano) & (md_.especificacao == e)][['dif_nota', 'dif_idd']].iloc[0]))
+s = ['\\begin{tabular}{lcccccc}', '\\toprule', ' & \\multicolumn{3}{c}{2022} & \\multicolumn{3}{c}{2023} \\\\', '\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}',
+     'Specification & Raw & Value added & At entry & Raw & Value added & At entry \\\\', '\\midrule',
+     row('Main estimate (Table~\\ref{tab:matched})', M('current IDD')),
+     row('Relative to all private courses', lambda ano: (sp.loc[ano, 'dif_nota'], sp.loc[ano, 'dif_idd'])),
+     row('In-person courses only', lambda ano: tuple(ip[(ip.ano == ano) & (ip.especificacao == 'in-person only')][['dif_nota', 'dif_idd']].iloc[0])),
+     row('Raw score of graduates with an Enem score only', M('raw score of graduates with an Enem score only')),
+     row('Value added without shrinkage', M('no shrinkage (course mean residual)')),
+     row('Enem coefficients estimated within courses', M('Enem coefficients within courses')),
+     '\\bottomrule', '\\end{tabular}']
+save('tab_altspec', '\n'.join(s))
 print(md.to_string())
 # Figure 1: coefficients by category (M1), 2019 and 2023
 import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt

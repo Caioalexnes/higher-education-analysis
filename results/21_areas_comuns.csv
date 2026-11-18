@@ -1,0 +1,8 @@
+ano;especificacao;cursos_federais;cursos_base;dif_nota;dif_idd;parcela_entrada;ic_nota_inf;ic_nota_sup;ic_idd_inf;ic_idd_sup;grupo;areas;areas_na_edicao
+2016;group I, areas common to 3 editions;572;1124;7.9812;0.3251;0.9593;6.8743;9.0315;-0.5137;1.0745;I;15;18
+2019;group I, areas common to 3 editions;638;1647;9.2103;1.3778;0.8504;8.2398;10.1766;0.8603;1.9002;I;15;29
+2023;group I, areas common to 3 editions;696;2682;11.9845;2.2679;0.8108;10.8490;13.1088;1.7509;2.7509;I;15;28
+2017;group II, areas common to 2 editions;1805;1587;5.5637;1.0245;0.8159;3.8632;7.3349;0.2677;1.7332;II;25;44
+2021;group II, areas common to 2 editions;1932;1677;8.1038;2.4540;0.6972;6.3727;9.4682;1.6307;2.9127;II;25;30
+2018;group III, areas common to 2 editions;614;3815;10.0546;0.9348;0.9070;8.7441;11.1129;0.2588;1.5532;III;24;27
+2022;group III, areas common to 2 editions;692;3827;12.0292;2.7593;0.7706;10.7860;13.2607;2.1430;3.2026;III;24;26

@@ -57,9 +57,12 @@ python 01_censo_origem.py
 python 02_enade_idd.py
 ...
 python 20_custo_hu.py
+python 21_robustez.py presencial
+python 21_robustez.py microdados
+python 21_robustez.py areas
 ```
 
-Script 12 accepts editions as arguments (for example `python 12_serie_historica.py 2022 2023`) and merges them into the existing output; script 13 does the same, and the bootstrap intervals of script 13 are computed when the environment variable `B` is set (the paper uses `B=200`). Script 14 is superseded by script 15 and need not be run. Script 15 reads the IDD microdata of 2016 to 2023 (extracted archives or zip files anywhere under `DADOS`) and also accepts `B` for bootstrap intervals. Script 18 reads the Sinopses Estatísticas extracted in folders named `sinopse_educacao_superior_<year>`. Script 19 reads the IDD microdata of 2022 and 2023 and the Enem 2018 microdata (zip or extracted CSV).
+Script 12 accepts editions as arguments (for example `python 12_serie_historica.py 2022 2023`) and merges them into the existing output; script 13 does the same, and the bootstrap intervals of script 13 are computed when the environment variable `B` is set (the paper uses `B=200`). Script 14 is superseded by script 15 and need not be run. Script 15 reads the IDD microdata of 2016 to 2023 (extracted archives or zip files anywhere under `DADOS`) and also accepts `B` for bootstrap intervals. Script 18 reads the Sinopses Estatísticas extracted in folders named `sinopse_educacao_superior_<year>`. Script 19 reads the IDD microdata of 2022 and 2023 and the Enem 2018 microdata (zip or extracted CSV). Script 21 runs in three parts, given as an argument, and needs the outputs of script 15. All bootstrap intervals resample institutions (all courses of an institution together), separately for the federal group and the comparison group; scripts 12, 13, 15 and 21 use `B=200` and script 10 uses 500 replications. A full run of scripts 12, 13 and 15 takes several minutes; scripts 12, 13 and 15 accept editions as arguments so that the run can be split.
 
 Then build the tables and figures and compile the paper:
 
@@ -82,17 +85,18 @@ xelatex paper && bibtex paper && xelatex paper && xelatex paper
 | `07_cauda_direita.py` | Position of a federal university's cut-off scores in the Enem 2024 distribution | No (companion essay) |
 | `08_base_regressao.py` | Course-level dataset for 2019 and 2023, with competition for seats and entering-cohort composition from the 2018 Census for 2023 | Table 1; inputs of scripts 09-11 |
 | `09_regressoes.py` | Weighted regressions on administrative category with area fixed effects, clustered by institution | Tables 3, 4, 6 and 7, Figure 2 |
-| `10_diferencas_pareadas.py` | Within-area gaps between federal and for-profit courses, by competition for seats, with bootstrap intervals | Table 5 |
+| `10_diferencas_pareadas.py` | Within-area gaps between federal and for-profit courses, by competition for seats, with bootstrap intervals (resampling institutions); defines the gap and the bootstrap used by scripts 12, 13, 15 and 21 | Table 5 |
 | `11_diagnostico_2019_2023.py` | Diagnostics of the 2019 and 2023 gaps | Value-added gap by Enem coverage band in 2023 (Section 6.3) |
 | `12_serie_historica.py` | Within-area gaps in every edition with course-level IDD, 2014-2023 | Tables 2 and 8 |
 | `13_metodo_idd.py` | Dispersion of the IDD and federal gaps by course size, every edition | Table 9 |
 | `14_reconstrucao_idd.py` | Approximate conversion of the 2014-2021 IDD to the current method from course-level data; superseded by script 15 | No |
 | `15_idd_microdados.py` | Recomputes the IDD of each edition from INEP's student-level IDD microdata with both the old and the current definitions, checks them against the published values (they match exactly) and computes the federal gaps | Table 10, Figure 3 |
 | `16_tempo_conclusao.py` | Years between entry and the Enade exam, federal and for-profit graduates of the same area, Enade 2019 and 2023 | No (companion essay) |
-| `17_cenarios_custo.py` | Federal current cost per student (with and without university hospitals and the research discount) against median in-person private tuition (with and without taxes on revenue), per year and per graduate, 2024 | Section 7 and Table A1 |
+| `17_cenarios_custo.py` | Federal current cost per student (with and without university hospitals and the research discount) against median in-person private tuition (with and without taxes on revenue), per year and per graduate, 2024 | Section 7 and Table A3 |
 | `18_evasao_sinopse.py` | Annual share of severed and suspended enrollments and enrollments per graduate, in-person undergraduate courses of federal universities and private for-profit institutions, 2015-2018 and 2024 (INEP Sinopses Estatísticas, table 7.2) | No (companion essay) |
 | `19_enem_entrada.py` | Position of 2022 and 2023 graduates (in-person courses) in the national distribution of Enem 2018 scores, federal and for-profit graduates of the same areas | Figure 1 and Section 6.1 |
-| `20_custo_hu.py` | Cost and value added among federal universities adding each university's own hospital budget units at 35% and 100% | Section 6.5 (robustness) |
+| `20_custo_hu.py` | Cost and value added among federal universities adding each university's own hospital budget units at 35% and 100%, unweighted and weighted by graduates | Section 6.5 and Table 11 (panel B) |
+| `21_robustez.py` | Robustness of the federal gaps: in-person courses only, value added without shrinkage, Enem coefficients estimated within courses, raw score of the graduates with an Enem score, and areas common to every edition of each group of areas | Tables A1 and A2, Sections 6.3 and 6.4 |
 
 The comparisons by category in scripts 02 and 06 subtract national means of area deviations and are superseded by the within-area comparison of script 10, which the paper uses.
 

@@ -114,8 +114,9 @@ def main():
     terc = []
     for i, (a, b) in enumerate([(0, k), (k, 2 * k), (2 * k, len(dados))]):
         sl = dados[a:b]
-        terc.append([i + 1, len(sl), round(np.mean([t[1] for t in sl]), 1), round(np.mean([t[2] for t in sl]), 2), round(np.mean([t[3] for t in sl]), 1)])
-    salvar_csv('03_tercis.csv', terc, ['tercil', 'universidades', 'custo_medio_mil', 'idd_medio', 'nota_bruta_media'])
+        terc.append([i + 1, len(sl), round(np.mean([t[1] for t in sl]), 1), round(np.mean([t[2] for t in sl]), 2), round(np.mean([t[3] for t in sl]), 1),
+                     round(float(np.std([t[2] for t in sl], ddof=1)), 3)])
+    salvar_csv('03_tercis.csv', terc, ['tercil', 'universidades', 'custo_medio_mil', 'idd_medio', 'nota_bruta_media', 'idd_dp'])
     X = np.array([t[1] for t in dados]); res = []
     for nome, Y in [('idd', np.array([t[2] for t in dados])), ('nota_bruta', np.array([t[3] for t in dados]))]:
         r = float(np.corrcoef(X, Y)[0, 1]); n = len(X); t = r * math.sqrt((n - 2) / (1 - r * r))

@@ -10,8 +10,11 @@ Federal side (all federal universities of script 03, total / total):
   and extension in federal universities, aggregate (script 04).
 Private side: median tuition actually paid in in-person private courses (Hoper Educacao/ABMES, 2026),
   twelve payments a year, in reais of 2024 (IPCA, mean of 2024 over mean of January-March 2026),
-  with or without the taxes on revenue (ISS 2% to 5%; PIS 0.65% and Cofins 3%, cumulative regime for
-  higher education, Lei 10.833/2003 art. 10, XIV).
+  with or without the taxes on revenue: ISS at 2% (central) or 5% (least favorable to federal);
+  PIS 0.65% and Cofins 3% (cumulative regime for higher education, Lei 10.833/2003 art. 10, XIV) only
+  in the least favorable choice, because institutions that adhere to ProUni are exempt from PIS and
+  Cofins on undergraduate revenue in proportion to the occupation of the scholarships they owe
+  (Lei 11.096/2005, art. 8).
 Per graduate: enrollments per graduate, federal over private for-profit, in-person bachelor's and
   licentiate courses of the same CINE label, weighted by federal enrollments (Census 2024 and 2018).
 Outputs: 17_cenarios_custo.csv, 17_matriculas_por_concluinte.csv
@@ -22,7 +25,7 @@ import os
 
 HU_SHARE = {"mais favorável": 0.0, "central": 0.35, "mais desfavorável": 1.0}
 DISCOUNT = {"mais favorável": True, "central": False, "mais desfavorável": False}
-TAX = {"mais favorável": 0.0, "central": 0.02 + 0.0365, "mais desfavorável": 0.05 + 0.0365}
+TAX = {"mais favorável": 0.0, "central": 0.02, "mais desfavorável": 0.05 + 0.0365}
 TUITION_MONTH, MONTHS = 835.0, 12
 IPCA_2024 = [6801.72, 6858.17, 6869.14, 6895.24, 6926.96, 6941.51, 6967.89, 6966.50, 6997.15, 7036.33, 7063.77, 7100.50]
 IPCA_2026Q1 = [7427.72, 7479.71, 7545.53]

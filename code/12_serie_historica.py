@@ -67,7 +67,8 @@ def base(ano):
     num = lambda s: pd.to_numeric(s, errors='coerce')
     if fc == 'cpc':
         c = ler(fi)
-        d = pd.DataFrame({'area': num(c[col(c, r'^Código da Área')]), 'categoria': c[col(c, r'Categoria Administrativa')].map(categoria),
+        d = pd.DataFrame({'area': num(c[col(c, r'^Código da Área')]), 'ies': num(c[col(c, r'^Código da IES', r'Cód.*IES')]),
+                          'categoria': c[col(c, r'Categoria Administrativa')].map(categoria),
                           'participantes': num(c[col(c, r'^Concluintes Participantes$')]),
                           'fg': num(c[col(c, r'Nota Bruta - FG')]), 'ce': num(c[col(c, r'Nota Bruta - CE')]),
                           'participantes_com_enem': num(c[col(c, r'Participantes com nota no Enem$')]),
@@ -77,6 +78,7 @@ def base(ano):
         return d[(d['participantes'] > 0) & (d['participantes_com_enem'] > 0)].reset_index(drop=True)
     c, i = ler(fc), ler(fi)
     a = pd.DataFrame({'curso': num(c[col(c, r'^Código do Curso')]), 'area': num(c[col(c, r'^Código da Área', r'Cód.*Área')]),
+                      'ies': num(c[col(c, r'^Código da IES', r'Cód.*IES')]),
                       'categoria': c[col(c, r'Categoria Administrativa')].map(categoria),
                       'participantes': num(c[col(c, r'Concluintes Participantes$', r'Nº +de Concluintes Participantes')]),
                       'fg': num(c[col(c, r'Nota Bruta - FG')]), 'ce': num(c[col(c, r'Nota Bruta - CE')])})
@@ -114,5 +116,5 @@ if __name__ == '__main__':
     destino = f'{RES}/12_serie_historica.csv'
     if os.path.exists(destino) and sys.argv[1:]:
         old = pd.read_csv(destino, sep=';'); out = pd.concat([old[~old['ano'].isin(anos)], out]).sort_values(['base', 'ano', 'categoria'])
-    out.to_csv(destino, sep=';', index=False, float_format='%.3f')
+    out.to_csv(destino, sep=';', index=False, float_format='%.4f')
     print(out[['base', 'ano', 'categoria', 'cursos', 'dif_nota', 'dif_idd', 'parcela_selecao', 'sd_idd_cursos', 'cobertura_enem_cat', 'cobertura_enem_base']].round(2).to_string(index=False))

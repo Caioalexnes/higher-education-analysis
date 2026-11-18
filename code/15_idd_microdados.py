@@ -120,7 +120,7 @@ if __name__ == '__main__':
         d = ler_microdados(ano)
         cur, par = estima(d, set(pub['curso']))
         par.insert(0, 'ano', ano); pars_all.append(par)
-        cur = cur.merge(pub[['curso', 'categoria', 'participantes', 'participantes_com_enem', 'nota_bruta', 'idd_bruto']], on='curso', how='left')
+        cur = cur.merge(pub[['curso', 'ies', 'categoria', 'participantes', 'participantes_com_enem', 'nota_bruta', 'idd_bruto']], on='curso', how='left')
         cur.to_csv(f'{RES}/15_idd_cursos_{ano}.csv', sep=';', index=False, float_format='%.4f')
         metodo_pub = 'idd_novo' if ano >= 2022 else 'idd_antigo_mantidos'
         linha = dict(ano=ano, cursos=len(cur))

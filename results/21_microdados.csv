@@ -1,0 +1,9 @@
+ano;especificacao;cursos_federais;cursos_base;dif_nota;dif_idd;parcela_entrada;dp_idd_cursos
+2022;current IDD;731;3837;11.7396;2.6985;0.7701;2.5670
+2022;no shrinkage (course mean residual);731;3837;11.7396;3.0950;0.7364;
+2022;Enem coefficients within courses;731;3837;11.7396;2.9960;0.7448;
+2022;raw score of graduates with an Enem score only;731;3837;11.3298;2.6985;0.7618;
+2023;current IDD;1465;4386;12.7212;2.5667;0.7982;2.9454
+2023;no shrinkage (course mean residual);1465;4383;12.7212;3.2986;0.7407;
+2023;Enem coefficients within courses;1465;4386;12.7212;3.6448;0.7135;
+2023;raw score of graduates with an Enem score only;1465;4386;12.3105;2.5667;0.7915;
