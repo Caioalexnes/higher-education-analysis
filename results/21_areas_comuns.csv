@@ -1,8 +1,15 @@
-ano;especificacao;cursos_federais;cursos_base;dif_nota;dif_idd;parcela_entrada;ic_nota_inf;ic_nota_sup;ic_idd_inf;ic_idd_sup;grupo;areas;areas_na_edicao
-2016;group I, areas common to 3 editions;572;1124;7.9812;0.3251;0.9593;6.8743;9.0315;-0.5137;1.0745;I;15;18
-2019;group I, areas common to 3 editions;638;1647;9.2103;1.3778;0.8504;8.2398;10.1766;0.8603;1.9002;I;15;29
-2023;group I, areas common to 3 editions;696;2682;11.9845;2.2679;0.8108;10.8490;13.1088;1.7509;2.7509;I;15;28
-2017;group II, areas common to 2 editions;1805;1587;5.5637;1.0245;0.8159;3.8632;7.3349;0.2677;1.7332;II;25;44
-2021;group II, areas common to 2 editions;1932;1677;8.1038;2.4540;0.6972;6.3727;9.4682;1.6307;2.9127;II;25;30
-2018;group III, areas common to 2 editions;614;3815;10.0546;0.9348;0.9070;8.7441;11.1129;0.2588;1.5532;III;24;27
-2022;group III, areas common to 2 editions;692;3827;12.0292;2.7593;0.7706;10.7860;13.2607;2.1430;3.2026;III;24;26
+ano;especificacao;cursos_federais;cursos_base;dif_nota;dif_idd;parcela_entrada;ic_nota_inf;ic_nota_sup;ic_idd_inf;ic_idd_sup;grupo;cursos;areas;areas_na_edicao
+2016;group I, areas common to 3 editions;572;1124;7.9812;0.3251;0.9593;6.8896;8.9922;-0.4101;1.0522;I;all courses;15;18
+2019;group I, areas common to 3 editions;638;1647;9.2103;1.3778;0.8504;8.2225;10.3166;0.8288;1.8848;I;all courses;15;29
+2023;group I, areas common to 3 editions;696;2682;11.9845;2.2679;0.8108;10.6552;13.0623;1.7240;2.7894;I;all courses;15;28
+2016;group I, areas common to 3 editions;570;1108;8.0109;0.3066;0.9617;6.9107;9.0835;-0.4330;1.0680;I;in-person only;15;18
+2019;group I, areas common to 3 editions;636;1613;9.0620;1.2691;0.8600;8.0493;10.1872;0.7644;1.7956;I;in-person only;15;29
+2023;group I, areas common to 3 editions;695;2564;11.2339;2.0319;0.8191;9.9403;12.4350;1.4701;2.5316;I;in-person only;15;28
+2017;group II, areas common to 2 editions;1805;1587;5.5637;1.0245;0.8159;3.6990;7.3514;0.2475;1.6955;II;all courses;25;44
+2021;group II, areas common to 2 editions;1932;1677;8.1038;2.4540;0.6972;6.3133;9.5095;1.6011;3.0161;II;all courses;25;30
+2017;group II, areas common to 2 editions;1615;1473;4.8548;0.0176;0.9964;3.2651;6.7764;-0.5302;0.6569;II;in-person only;23;44
+2021;group II, areas common to 2 editions;1718;1416;6.9414;1.0276;0.8520;5.0766;8.6612;0.3628;1.6330;II;in-person only;23;30
+2018;group III, areas common to 2 editions;614;3815;10.0546;0.9348;0.9070;8.7479;11.2325;0.2342;1.5935;III;all courses;24;27
+2022;group III, areas common to 2 editions;692;3827;12.0292;2.7593;0.7706;10.7558;13.1887;2.1730;3.2541;III;all courses;24;26
+2018;group III, areas common to 2 editions;612;3592;9.4123;0.1821;0.9806;8.1882;10.6045;-0.2883;0.6451;III;in-person only;24;27
+2022;group III, areas common to 2 editions;684;3324;10.7132;1.8673;0.8257;9.3839;11.8782;1.4022;2.3227;III;in-person only;24;26

@@ -105,7 +105,7 @@ if __name__ == '__main__':
                 if len(g) < 30 or cat in cats_base:
                     continue
                 dn, di = p.pareada(g, b)
-                icn, ici = p.boot(g, b, B=200)
+                icn, ici = p.boot(g, b, B=int(os.environ.get('B', '1000')))
                 linhas.append(dict(ano=ano, base=nome_base, categoria=cat, cursos=len(g), areas=d['area'].nunique(), dif_nota=dn, ic_nota_inf=icn[0], ic_nota_sup=icn[1],
                                    dif_idd=di, ic_idd_inf=ici[0], ic_idd_sup=ici[1], parcela_selecao=1 - di / dn,
                                    sd_idd_cursos=d['idd_bruto'].std(),

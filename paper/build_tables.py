@@ -9,6 +9,10 @@ f1 = lambda x: f'{x:,.1f}'.replace(',', '{,}') if pd.notna(x) else '--'
 f2 = lambda x: f'{x:.2f}' if pd.notna(x) else '--'
 pct = lambda x: f'{100*x:.1f}' if pd.notna(x) else '--'
 def save(name, s): open(f'tables/{name}.tex', 'w').write(s)
+import re
+def menos(r):
+    """Typeset minus signs; a value that rounds to zero is shown without sign."""
+    return re.sub(r'\$-\$(0\.0+)(?![\d])', r'\1', re.sub(r'(?<![-\d])-(\d)', r'$-$\1', r))
 
 # Table 2: descriptives by category and year
 rows = []
@@ -136,7 +140,7 @@ for fx, en in [('1-14', '1 to 14'), ('15-39', '15 to 39'), ('40+', '40 or more')
     x = G2[G2.faixa == fx]
     s.append(en + ' & ' + ' & '.join(f"{100*(1 - x[x.ano == a].dif_idd.iloc[0] / x[x.ano == a].dif_nota.iloc[0]):.0f}" for a in ED) + ' \\\\')
 s += ['\\bottomrule', '\\end{tabular}']
-s = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in s]
+s = [menos(r) for r in s]
 save('tab_method', '\n'.join(s))
 print('method table', G2[G2.ano.isin(ED)][['ano','faixa','dif_nota','dif_idd','parcela_entrada']].round(2).to_string())
 
@@ -156,22 +160,33 @@ for lab_, b_, t_ in [('Unweighted', 'inclinacao', 't'), ('Unweighted, with gradu
                      ('Weighted, with graduate-program controls', 'inclinacao_ponderada_controles', 't_ponderada_controles_robusto')]:
     s.append(lab_ + ' & ' + ' & '.join(f"{mh.loc[h, b_]:.3f} ({mh.loc[h, t_]:.1f})" for h in (0.0, 0.35, 1.0)) + ' \\\\')
 s += ['\\bottomrule', '\\end{tabular}']
-s = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in s]
+s = [menos(r) for r in s]
 save('tab_cost_terciles', '\n'.join(s))
 # Appendix tables: in-person courses, common areas and alternative specifications (script 21)
-ip = pd.read_csv(f'{R}21_presencial.csv', sep=';'); ac = pd.read_csv(f'{R}21_areas_comuns.csv', sep=';').set_index('ano')
+ip = pd.read_csv(f'{R}21_presencial.csv', sep=';'); ac = pd.read_csv(f'{R}21_areas_comuns.csv', sep=';')
+au = pd.read_csv(f'{R}21_areas_comuns_aumento.csv', sep=';').set_index(['grupo', 'cursos'])
 gr_ = {2016: 'I', 2019: 'I', 2023: 'I', 2017: 'II', 2021: 'II', 2018: 'III', 2022: 'III'}
-ci = lambda v, a, b: f"{v:.2f} [{a:.2f}, {b:.2f}]"
-s = ['\\begin{tabular}{cccccccc}', '\\toprule',
-     ' & & For-profit & \\multicolumn{3}{c}{Value-added gap (points)} & \\multicolumn{2}{c}{Share present at entry} \\\\',
-     '\\cmidrule(lr){4-6}\\cmidrule(lr){7-8}',
-     'Edition & Area group & graduates in DL & All courses & In-person only & Common areas & All & In-person \\\\', '\\midrule']
+ic_ = lambda a, b: f"[{a:.2f}, {b:.2f}]"
+s = ['\\begin{tabular}{ccccccccc}', '\\toprule',
+     ' & & For-profit & \\multicolumn{4}{c}{Value-added gap (points)} & \\multicolumn{2}{c}{Share present at entry} \\\\',
+     '\\cmidrule(lr){4-7}\\cmidrule(lr){8-9}',
+     ' & & graduates & \\multicolumn{2}{c}{All areas} & \\multicolumn{2}{c}{Common areas} & \\multicolumn{2}{c}{All areas} \\\\',
+     '\\cmidrule(lr){4-5}\\cmidrule(lr){6-7}\\cmidrule(lr){8-9}',
+     'Edition & Area group & in DL & All courses & In-person & All courses & In-person & All courses & In-person \\\\', '\\midrule',
+     '\\multicolumn{9}{l}{\\textit{A. Gap by edition}} \\\\']
 for ano in sorted(ip.ano.unique()):
-    a_ = ip[(ip.ano == ano) & (ip.especificacao == 'all courses')].iloc[0]; p_ = ip[(ip.ano == ano) & (ip.especificacao == 'in-person only')].iloc[0]; c_ = ac.loc[ano]
-    s.append(f"{ano} & {gr_[ano]} & {100*a_.ead_fins_lucrativos:.0f}\\% & {ci(a_.dif_idd, a_.ic_idd_inf, a_.ic_idd_sup)} & {ci(p_.dif_idd, p_.ic_idd_inf, p_.ic_idd_sup)} & "
-             f"{ci(c_.dif_idd, c_.ic_idd_inf, c_.ic_idd_sup)} & {100*a_.parcela_entrada:.0f}\\% & {100*p_.parcela_entrada:.0f}\\% \\\\")
+    a_ = ip[(ip.ano == ano) & (ip.especificacao == 'all courses')].iloc[0]; p_ = ip[(ip.ano == ano) & (ip.especificacao == 'in-person only')].iloc[0]
+    c_ = ac[(ac.ano == ano) & (ac.cursos == 'all courses')].iloc[0]; cp_ = ac[(ac.ano == ano) & (ac.cursos == 'in-person only')].iloc[0]
+    s.append(f"{ano} & {gr_[ano]} & {100*a_.ead_fins_lucrativos:.0f}\\% & {a_.dif_idd:.2f} & {p_.dif_idd:.2f} & {c_.dif_idd:.2f} & {cp_.dif_idd:.2f} & "
+             f"{100*a_.parcela_entrada:.0f}\\% & {100*p_.parcela_entrada:.0f}\\% \\\\")
+    s.append(f" & & & {ic_(a_.ic_idd_inf, a_.ic_idd_sup)} & {ic_(p_.ic_idd_inf, p_.ic_idd_sup)} & {ic_(c_.ic_idd_inf, c_.ic_idd_sup)} & {ic_(cp_.ic_idd_inf, cp_.ic_idd_sup)} & & \\\\[2pt]")
+s += ['\\midrule', '\\multicolumn{9}{l}{\\textit{B. Increase from the first to the last edition of the group, common areas}} \\\\']
+for g_, (a0, a1) in [('I', (2016, 2023)), ('II', (2017, 2021)), ('III', (2018, 2022))]:
+    x, y = au.loc[(g_, 'all courses')], au.loc[(g_, 'in-person only')]
+    s.append(f"{a0}--{a1} & {g_} & & & & {x.aumento_idd:.2f} & {y.aumento_idd:.2f} & & \\\\")
+    s.append(f" & & & & & {ic_(x.ic_inf, x.ic_sup)} & {ic_(y.ic_inf, y.ic_sup)} & & \\\\[2pt]")
 s += ['\\bottomrule', '\\end{tabular}']
-s = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in s]
+s = [menos(r) for r in s]
 save('tab_inperson', '\n'.join(s))
 md_ = pd.read_csv(f'{R}21_microdados.csv', sep=';')
 sp = pd.read_csv(f'{R}12_serie_historica.csv', sep=';'); sp = sp[(sp.categoria == 'Pública Federal') & (sp.base == 'all private')].set_index('ano')
@@ -231,7 +246,7 @@ for ano in sorted(f.ano.unique()):
     fp = (f"{a_.dif_nota.iloc[0]:.1f} & {a_.dif_idd.iloc[0]:.2f} [{a_.ic_idd_inf.iloc[0]:.2f}, {a_.ic_idd_sup.iloc[0]:.2f}]") if len(a_) else '-- & --'
     ap = f"{b_.dif_nota.iloc[0]:.1f} & {b_.dif_idd.iloc[0]:.2f} [{b_.ic_idd_inf.iloc[0]:.2f}, {b_.ic_idd_sup.iloc[0]:.2f}]"
     rows.append(f"{ano} & {grp[ano]} & {int(b_.cursos.iloc[0]):,} & {fp} & {ap} \\\\".replace(',', '{,}', 1) if int(b_.cursos.iloc[0]) >= 1000 else f"{ano} & {grp[ano]} & {int(b_.cursos.iloc[0])} & {fp} & {ap} \\\\")
-rows = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in rows]
+rows = [menos(r) for r in rows]
 rows += ['\\bottomrule', '\\end{tabular}']
 save('tab_series', '\n'.join(rows))
 # Table: IDD recomputed from the student-level microdata (script 15)
@@ -245,7 +260,7 @@ for base_, lab_ in [('private for-profit', 'A. Relative to private for-profit co
         x = rc.loc[ano]; k = lambda c: x[f'{base_}: {c}']
         rows.append(f"{ano} & {grp[ano]} & {k('dif_nota'):.1f} & {k('dif_idd_bruto'):.2f} & {k('dif_idd_novo'):.2f} [{k('ic_idd_novo_inf'):.2f}, {k('ic_idd_novo_sup'):.2f}] & {100*(1-k('dif_idd_novo')/k('dif_nota')):.0f}\\% \\\\")
     if base_ == 'private for-profit': rows.append('\\midrule')
-rows = [__import__('re').sub(r'(?<![-\d])-(\d)', r'$-$\1', r) for r in rows]
+rows = [menos(r) for r in rows]
 rows += ['\\bottomrule', '\\end{tabular}']
 save('tab_recomputed', '\n'.join(rows))
 # Figure 2: published and recomputed value-added gaps by group of areas (for-profit base)

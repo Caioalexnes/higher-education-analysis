@@ -90,10 +90,10 @@ def main():
         b1, s1 = mqo(y, [x]); b2, s2 = mqo(y, [x, pg, cc])
         bw, sw, rw = mqo_w(y, [x], w); bw2, sw2, rw2 = mqo_w(y, [x, pg, cc], w)
         r = float(np.corrcoef(x, y)[0, 1])
-        linhas.append([parte, len(dados), round(float(np.median(x)), 1), round(float(b1[1]), 4), round(float(s1[1]), 4), round(float(b1[1] / s1[1]), 2),
-                       round(r, 3), round(float(b2[1]), 4), round(float(s2[1]), 4), round(float(b2[1] / s2[1]), 2),
-                       round(float(bw[1]), 4), round(float(sw[1]), 4), round(float(bw[1] / sw[1]), 2), round(float(bw[1] / rw[1]), 2),
-                       round(float(bw2[1]), 4), round(float(bw2[1] / sw2[1]), 2), round(float(bw2[1] / rw2[1]), 2)])
+        linhas.append([parte, len(dados), round(float(np.median(x)), 1), round(float(b1[1]), 6), round(float(s1[1]), 6), round(float(b1[1] / s1[1]), 2),
+                       round(r, 3), round(float(b2[1]), 6), round(float(s2[1]), 6), round(float(b2[1] / s2[1]), 2),
+                       round(float(bw[1]), 6), round(float(sw[1]), 6), round(float(bw[1] / sw[1]), 2), round(float(bw[1] / rw[1]), 2),
+                       round(float(bw2[1]), 6), round(float(bw2[1] / sw2[1]), 2), round(float(bw2[1] / rw2[1]), 2)])
         print(linhas[-1])
     salvar_csv('20_modelos_hu.csv', linhas, ['parcela_hu', 'universidades', 'custo_mediano_mil', 'inclinacao', 'ep', 't',
                                              'pearson_r', 'inclinacao_com_controles', 'ep_com_controles', 't_com_controles',

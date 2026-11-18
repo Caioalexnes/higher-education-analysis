@@ -8,7 +8,7 @@ compared with the for-profit mean of the same area, and the area gaps are averag
 weights equal to the federal group's graduates (participants for the raw score;
 participants with an Enem score for the IDD). 95% intervals: bootstrap that resamples
 institutions (all courses of an institution together), separately for the federal group and
-the comparison group (500 replications; scripts 12, 13 and 15 use 200).
+the comparison group (1,000 replications, as in scripts 12, 13, 15 and 21).
 Outputs: results/10_diferencas_pareadas.csv
 """
 import numpy as np
@@ -39,19 +39,38 @@ def pareada(g, b):
     return np.average(r[:, 2], weights=r[:, 0]), np.average(r[:, 3], weights=r[:, 1])
 
 
-def boot(g, b, B=500, seed=1):
-    """Percentile intervals from resampling institutions (column 'ies'), separately in each group."""
+def _somas(d, areas):
+    """Per institution and area: participants, participants x raw score, participants with Enem, those x IDD."""
+    ies, ii = np.unique(d['ies'].values, return_inverse=True)
+    aa = np.searchsorted(areas, d['area'].values)
+    M = np.zeros((4, len(ies), len(areas)))
+    pn, pi = d['participantes'].values.astype(float), d['participantes_com_enem'].values.astype(float)
+    # products with missing scores count as zero, as pandas' sum does in pareada()
+    for k, v in enumerate([pn, np.nan_to_num(pn * d['nota_bruta'].values), pi, np.nan_to_num(pi * d['idd_bruto'].values)]):
+        np.add.at(M[k], (ii, aa), v)
+    return M
+
+
+def boot(g, b, B=1000, seed=1):
+    """Percentile intervals from resampling institutions (column 'ies'), separately in each group.
+
+    Each replication draws, with replacement, as many institutions as the group has and keeps all
+    their courses; the gap is then computed exactly as in pareada(), from area totals.
+    """
     if g['ies'].isna().any() or b['ies'].isna().any():
         raise ValueError('courses without institution code')
     rng = np.random.default_rng(seed)
-    gi = [x.index.values for _, x in g.groupby('ies')]
-    bi = [x.index.values for _, x in b.groupby('ies')]
-    out = []
-    for _ in range(B):
-        gg = g.loc[np.concatenate([gi[j] for j in rng.integers(0, len(gi), len(gi))])]
-        bb = b.loc[np.concatenate([bi[j] for j in rng.integers(0, len(bi), len(bi))])]
-        out.append(pareada(gg, bb))
-    out = np.array(out)
+    areas = np.unique(np.concatenate([g['area'].values, b['area'].values]))
+    Mg, Mb = _somas(g, areas), _somas(b, areas)
+    out = np.empty((B, 2))
+    for r in range(B):
+        cg = np.bincount(rng.integers(0, Mg.shape[1], Mg.shape[1]), minlength=Mg.shape[1])
+        cb = np.bincount(rng.integers(0, Mb.shape[1], Mb.shape[1]), minlength=Mb.shape[1])
+        tg = np.einsum('i,kia->ka', cg, Mg); tb = np.einsum('i,kia->ka', cb, Mb)
+        ok = (tg[0] > 0) & (tb[0] > 0)
+        dn = tg[1, ok] / tg[0, ok] - tb[1, ok] / tb[0, ok]
+        di = tg[3, ok] / tg[2, ok] - tb[3, ok] / tb[2, ok]
+        out[r] = np.average(dn, weights=tg[0, ok]), np.average(di, weights=tg[2, ok])
     return np.percentile(out[:, 0], [2.5, 97.5]), np.percentile(out[:, 1], [2.5, 97.5])
 
 

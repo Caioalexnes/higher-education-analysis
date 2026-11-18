@@ -10,11 +10,14 @@ Parts (run separately; each writes its own output):
                   value added = course mean of C - X b_within;
               (c) raw score computed only over the graduates with an Enem score (same sample as the IDD).
   areas       Growth within each group of areas, restricted to the areas assessed in every edition of
-              the group (group I: 2016, 2019, 2023; group II: 2017, 2021; group III: 2018, 2022).
-Gaps: equation (1) of the paper (script 10); intervals: bootstrap of institutions (B, default 200).
+              the group (group I: 2016, 2019, 2023; group II: 2017, 2021; group III: 2018, 2022),
+              with all courses and with in-person courses only (common areas defined within each set).
+              The increase between the group's first and last edition gets an interval from resampling
+              institutions jointly across the two editions.
+Gaps: equation (1) of the paper (script 10); intervals: bootstrap of institutions (B, default 1,000).
 Course modality and institution: Conceito Enade spreadsheets (script 12).
 Usage: python 21_robustez.py presencial | microdados | areas
-Outputs: 21_presencial.csv, 21_microdados.csv, 21_areas_comuns.csv
+Outputs: 21_presencial.csv, 21_microdados.csv, 21_areas_comuns.csv, 21_areas_comuns_aumento.csv
 """
 import os, sys, importlib.util
 import numpy as np
@@ -24,7 +27,7 @@ aqui = os.path.dirname(os.path.abspath(__file__))
 def mod(nome, arq):
     s = importlib.util.spec_from_file_location(nome, os.path.join(aqui, arq)); m = importlib.util.module_from_spec(s); s.loader.exec_module(m); return m
 p = mod('p', '10_diferencas_pareadas.py'); s12 = mod('s12', '12_serie_historica.py')
-B = int(os.environ.get('B', '200'))
+B = int(os.environ.get('B', '1000'))
 ANOS = (2016, 2017, 2018, 2019, 2021, 2022, 2023)
 GRUPOS = {'I': (2016, 2019, 2023), 'II': (2017, 2021), 'III': (2018, 2022)}
 
@@ -100,19 +103,52 @@ def microdados():
     salvar('21_microdados.csv', linhas)
 
 
+def aumento(xs, anos, seed=1):
+    """Increase in the value-added gap between the first and last edition of a group, with a 95% interval from
+    resampling institutions jointly across the editions (an institution's courses in both editions together),
+    separately for the federal group and the comparison group."""
+    a0, a1 = anos[0], anos[-1]
+    areas = np.array(sorted(set().union(*[set(xs[a]['area']) for a in anos])))
+    def mats(d, ies):
+        ii, aa = np.searchsorted(ies, d['ies'].values), np.searchsorted(areas, d['area'].values)
+        M = np.zeros((4, len(ies), len(areas)))
+        pn, pi = d['participantes'].values.astype(float), d['participantes_com_enem'].values.astype(float)
+        for k, v in enumerate([pn, np.nan_to_num(pn * d['nota_bruta'].values), pi, np.nan_to_num(pi * d['idd_bruto'].values)]):
+            np.add.at(M[k], (ii, aa), v)
+        return M
+    def gapM(cg, Mg, cb, Mb):
+        tg, tb = np.einsum('i,kia->ka', cg, Mg), np.einsum('i,kia->ka', cb, Mb); ok = (tg[0] > 0) & (tb[0] > 0)
+        return np.average(tg[3, ok] / tg[2, ok] - tb[3, ok] / tb[2, ok], weights=tg[2, ok])
+    G = {a: xs[a][xs[a]['categoria'] == p.FED] for a in (a0, a1)}; Bs = {a: xs[a][xs[a]['categoria'] == p.BASE] for a in (a0, a1)}
+    ig = np.unique(np.concatenate([G[a]['ies'].values for a in (a0, a1)])); ib = np.unique(np.concatenate([Bs[a]['ies'].values for a in (a0, a1)]))
+    Mg = {a: mats(G[a], ig) for a in (a0, a1)}; Mb = {a: mats(Bs[a], ib) for a in (a0, a1)}
+    est = gapM(np.ones(len(ig)), Mg[a1], np.ones(len(ib)), Mb[a1]) - gapM(np.ones(len(ig)), Mg[a0], np.ones(len(ib)), Mb[a0])
+    rng, out = np.random.default_rng(seed), np.empty(B)
+    for r in range(B):
+        cg = np.bincount(rng.integers(0, len(ig), len(ig)), minlength=len(ig)); cb = np.bincount(rng.integers(0, len(ib), len(ib)), minlength=len(ib))
+        out[r] = gapM(cg, Mg[a1], cb, Mb[a1]) - gapM(cg, Mg[a0], cb, Mb[a0])
+    return est, np.percentile(out, [2.5, 97.5])
+
+
 def areas():
-    linhas = []
+    linhas, aum = [], []
     for grupo, anos in GRUPOS.items():
-        ds = {a: cursos(a) for a in anos}
-        comuns = None
-        for a, d in ds.items():
-            ok = set(d[d['categoria'] == p.FED]['area']) & set(d[d['categoria'] == p.BASE]['area'])
-            comuns = ok if comuns is None else comuns & ok
-        for a, d in ds.items():
-            l = gap(d[d['area'].isin(comuns)].reset_index(drop=True), a, f'group {grupo}, areas common to {len(anos)} editions')
-            l.update(grupo=grupo, areas=len(comuns), areas_na_edicao=d['area'].nunique()); linhas.append(l)
-        print(grupo, sorted(comuns), flush=True)
-    salvar('21_areas_comuns.csv', linhas)
+        ds = {a: cursos(a).merge(modalidade(a), on='curso', how='left') for a in anos}
+        for rotulo, filtro in [('all courses', lambda d: d),
+                               ('in-person only', lambda d: d[d['modalidade'].str.contains('Presencial', na=False)])]:
+            xs = {a: filtro(d) for a, d in ds.items()}
+            comuns = None
+            for a, d in xs.items():
+                ok = set(d[d['categoria'] == p.FED]['area']) & set(d[d['categoria'] == p.BASE]['area'])
+                comuns = ok if comuns is None else comuns & ok
+            xs = {a: d[d['area'].isin(comuns)].reset_index(drop=True) for a, d in xs.items()}
+            for a, d in xs.items():
+                l = gap(d, a, f'group {grupo}, areas common to {len(anos)} editions')
+                l.update(grupo=grupo, cursos=rotulo, areas=len(comuns), areas_na_edicao=ds[a].pipe(filtro)['area'].nunique()); linhas.append(l)
+            est, ic = aumento(xs, anos)
+            aum.append(dict(grupo=grupo, cursos=rotulo, de=anos[0], ate=anos[-1], aumento_idd=est, ic_inf=ic[0], ic_sup=ic[1]))
+            print(grupo, rotulo, sorted(comuns), flush=True)
+    salvar('21_areas_comuns.csv', linhas); salvar('21_areas_comuns_aumento.csv', aum)
 
 
 if __name__ == '__main__':

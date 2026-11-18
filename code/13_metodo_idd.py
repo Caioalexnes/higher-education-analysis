@@ -27,7 +27,7 @@ s12 = mod('s12', '12_serie_historica.py')
 FAIXAS_SD = [(1, 5), (6, 10), (11, 20), (21, 40), (41, 80), (81, 10**6)]
 FAIXAS_GAP = [(1, 14), (15, 39), (40, 10**6)]
 PRIV = {'Privada com fins lucrativos', 'Privada sem fins lucrativos', 'Comunitária/Confessional', 'Privada (não separada)'}
-B = int(os.environ.get('B', '0'))
+B = int(os.environ.get('B', '1000'))
 
 if __name__ == '__main__':
     anos = [int(a) for a in sys.argv[1:]] or sorted(s12.ARQ)
