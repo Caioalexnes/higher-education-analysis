@@ -1,7 +1,7 @@
 {
   "title": "Selection or Teaching? Value Added and Cost in Brazilian Federal Universities: replication package",
   "upload_type": "software",
-  "description": "<p>Code, intermediate results and LaTeX source of the working paper <em>Selection or Teaching? Value Added and Cost in Brazilian Federal Universities</em>. The paper places federal and for-profit graduates in the national distribution of admission-exam scores, compares federal and private higher-education courses of the same assessment area with the raw score in the national graduation exam (Enade) and INEP's value-added indicator (IDD), recomputes the IDD of the editions from 2016 to 2023 from INEP's student-level microdata with the definitions used before and after 2022, and relates value added to current cost per student in 66 federal universities, and compares federal spending per student with private tuition under alternative treatments of university hospitals, research and taxes. All data are public; the raw data are archived in a separate record.</p>",
+  "description": "<p>Code, intermediate results and LaTeX source of the working paper <em>Selection or Teaching? Value Added and Cost in Brazilian Federal Universities</em>. The paper places federal and for-profit graduates in the national distribution of admission-exam scores, compares federal and private higher-education courses of the same assessment area with the raw score in the national graduation exam (Enade) and INEP's value-added indicator (IDD), recomputes the IDD of the editions from 2016 to 2023 from INEP's student-level microdata with the definitions used before and after 2022, relates value added to current cost per student in 66 federal universities, and compares federal spending per student with private tuition under alternative treatments of university hospitals, research and taxes. All data are public; the raw data are archived in a separate record.</p>",
   "creators": [
     {
       "name": "Cunha, Caio A. F.",
@@ -19,5 +19,13 @@
     "Enade",
     "IDD"
   ],
-  "version": "0.7"
+  "version": "0.7",
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.24328003",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset",
+      "scheme": "doi"
+    }
+  ]
 }

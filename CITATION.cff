@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you use this code or these results, please cite them as below."
 title: "Selection or Teaching? Value Added and Cost in Brazilian Federal Universities: replication package"
 version: "0.7"
+doi: "10.5281/zenodo.24328157"
 authors:
   - family-names: "Cunha"
     given-names: "Caio A. F."

@@ -21,7 +21,7 @@ paper/       paper.tex, refs.bib, build_tables.py, tables/, figures/, paper.pdf
 
 ## Data
 
-Place the files below in one folder and set the environment variable `DADOS` to that folder (default: the folder that contains this repository). Additional folders can be given in `DADOS_EXTRA`, separated by `:` on Linux and macOS or `;` on Windows.
+Copies of all the files below, except the CAPES file of graduate students, are archived at https://doi.org/10.5281/zenodo.24328003, with their original addresses and checksums. Place the files below in one folder and set the environment variable `DADOS` to that folder (default: the folder that contains this repository). Additional folders can be given in `DADOS_EXTRA`, separated by `:` on Linux and macOS or `;` on Windows.
 
 | File | Source |
 |---|---|
@@ -128,7 +128,7 @@ The code and the text of the paper were produced with the assistance of a genera
 
 ## Citation
 
-See [`CITATION.cff`](CITATION.cff). A versioned copy will be deposited on Zenodo.
+See [`CITATION.cff`](CITATION.cff). Archived versions on Zenodo: code and results, https://doi.org/10.5281/zenodo.24328157; copies of the public data files used, https://doi.org/10.5281/zenodo.24328003.
 
 ## License
 
